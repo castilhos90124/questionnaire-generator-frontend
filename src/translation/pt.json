@@ -36,7 +36,8 @@
         "register": "Register",
         "alreadyHaveMembership": "I already have a membership",
         "userProfile": "User Profile",
-        "questionnaire": "Questionário"
+        "questionnaire": "Questionário",
+        "create": "Criar"
     },
     "messages": {
         "retrieveNewPassword": "You forgot your password? Here you can easily retrieve a new password.",

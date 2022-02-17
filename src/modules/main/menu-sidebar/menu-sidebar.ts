@@ -25,10 +25,10 @@ export const MENU = [
         path: '/blank'
     },
     {
-        name: 'labels.mainMenu',
+        name: 'labels.questionnaire',
         children: [
             {
-                name: 'labels.subMenu',
+                name: 'labels.create',
                 path: '/sub-menu-1'
             },
 
