@@ -2,11 +2,9 @@
     <!-- /.login-logo -->
     <div class="card card-outline card-primary">
         <div class="card-header text-center">
-            <router-link to="/" class="h1"><b>{{ $t("labels.admin") }}</b>{{ $t("labels.lte") }}</router-link>
+            <router-link to="/" class="h1">{{ $t("labels.questionnaire") }}</router-link>
         </div>
         <div class="card-body">
-            <p class="login-box-msg">{{ $t("labels.signInToStart") }}</p>
-
             <form @submit.prevent="loginByAuth">
                 <app-input
                     icon="envelope"
@@ -20,7 +18,7 @@
                     icon="lock"
                     class="mb-3"
                     type="password"
-                    placeholder="Password"
+                    placeholder="Senha"
                     autocomplete="off"
                     v-model="password"
                 />
@@ -38,7 +36,6 @@
                             type="submit"
                             block="true"
                             :loading="isAuthLoading"
-                            :disabled="isFacebookLoading || isGoogleLoading"
                         >
                         {{ $t("labels.signIn") }}
                         </app-button>
@@ -47,40 +44,7 @@
                 </div>
             </form>
 
-            <div class="social-auth-links text-center mt-2 mb-3">
-                <app-button
-                    class="btn-primary"
-                    icon="facebook"
-                    block="true"
-                    @click="loginByFacebook"
-                    :loading="isFacebookLoading"
-                    :disabled="isAuthLoading || isGoogleLoading"
-                >
-                    {{ $t("labels.signInUsingFB") }}
-                </app-button>
-                <app-button
-                    class="btn-danger"
-                    icon="google-plus"
-                    block="true"
-                    @click="loginByGoogle"
-                    :loading="isGoogleLoading"
-                    :disabled="isAuthLoading || isFacebookLoading"
-                >
-                    {{ $t("labels.SignInUsingGoogle") }}
-                </app-button>
-            </div>
             <!-- /.social-auth-links -->
-
-            <p class="mb-1">
-                <router-link to="/forgot-password">
-                    {{ $t("labels.forgotPassword") }}
-                </router-link>
-            </p>
-            <p class="mb-0">
-                <router-link to="/register" class="text-center">
-                    {{ $t("labels.registerMembership") }}
-                </router-link>
-            </p>
         </div>
         <!-- /.card-body -->
     </div>

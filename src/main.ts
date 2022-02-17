@@ -14,7 +14,8 @@ import {VueWindowSizePlugin} from 'vue-window-size/option-api';
 
 import en from './translation/en.json';
 import es from './translation/es.json';
-import tr from './translation/tr.json';
+import pt from './translation/pt.json';
+
 import './index.scss';
 
 library.add(faLock, faEnvelope, faFacebook, faGooglePlus);
@@ -26,8 +27,8 @@ Gatekeeper.configure('de378d9c-38c8-42c1-b961-9e4fa92d6a5e', {
 
 const options: PluginOptions = {};
 const i18n = createI18n({
-    locale: 'en',
-    messages: {en, es, tr},
+    locale: 'pt',
+    messages: {en, es, pt},
     fallbackLocale: 'en'
 });
 

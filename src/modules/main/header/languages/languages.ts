@@ -31,9 +31,9 @@ export default class Languages extends Vue {
             label: 'languages.spanish'
         },
         {
-            key: 'tr',
-            flag: 'flag-icon-tr',
-            label: 'languages.turkish'
+            key: 'pt',
+            flag: 'flag-icon-pt',
+            label: 'languages.portuguese'
         }
     ];
 

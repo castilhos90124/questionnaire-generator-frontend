@@ -1,4 +1,4 @@
-# Admin LTE 3.1.0 - Vue 3.2.18
+# Questionnaire Generator Frontend
 
 To login website use:
 
@@ -7,40 +7,30 @@ To login website use:
 
 ## Project setup
 
-```
-npm install
-```
-
 ### Compiles and hot-reloads for development
 
 ```
-npm run serve
+make
 ```
 
 ### Compiles and minifies for production
 
 ```
-npm run build
+make build-production
 ```
 
-### Run your unit tests
+### Run your unit and end-to-end tests
 
 ```
-npm run test:unit
-```
-
-### Run your end-to-end tests
-
-```
-npm run test:e2e
+make tests
 ```
 
 ### Lints and fixes files
 
 ```
-npm run lint
+make lint
 ```
-
-### Customize configuration
-
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## Default Url
+```
+http://localhost:8080/
+```

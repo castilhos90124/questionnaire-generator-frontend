@@ -1,5 +1,5 @@
 import {Options, Vue} from 'vue-class-component';
-import {loginByAuth, loginByGoogle, loginByFacebook} from '@/services/auth';
+import {loginByAuth} from '@/services/auth';
 import Checkbox from '@/components/checkbox/checkbox.vue';
 import Input from '@/components/input/input.vue';
 import Button from '@/components/button/button.vue';
@@ -18,8 +18,6 @@ export default class Login extends Vue {
     public password: string = '';
     public rememberMe: boolean = false;
     public isAuthLoading: boolean = false;
-    public isFacebookLoading: boolean = false;
-    public isGoogleLoading: boolean = false;
     private toast = useToast();
 
     public mounted(): void {
@@ -42,30 +40,6 @@ export default class Login extends Vue {
             console.log(error);
             this.toast.error(error.message);
             this.isAuthLoading = false;
-        }
-    }
-
-    public async loginByFacebook(): Promise<void> {
-        try {
-            this.isFacebookLoading = true;
-            const token = await loginByFacebook();
-            this.$store.dispatch('auth/login', token);
-            this.isFacebookLoading = false;
-        } catch (error: any) {
-            this.toast.error(error.message);
-            this.isFacebookLoading = false;
-        }
-    }
-
-    public async loginByGoogle(): Promise<void> {
-        try {
-            this.isGoogleLoading = true;
-            const token = await loginByGoogle();
-            this.$store.dispatch('auth/login', token);
-            this.isGoogleLoading = false;
-        } catch (error: any) {
-            this.toast.error(error.message);
-            this.isGoogleLoading = false;
         }
     }
 }
