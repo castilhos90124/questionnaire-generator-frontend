@@ -34,11 +34,10 @@ export default class Login extends Vue {
             this.isAuthLoading = true;
             const token = await loginByAuth(this.email, this.password);
             this.$store.dispatch('auth/login', token);
-            this.toast.success('Login succeeded');
             this.isAuthLoading = false;
         } catch (error: any) {
             console.log(error);
-            this.toast.error(error.message);
+            this.toast.error(this.$t('messages.loginError'));
             this.isAuthLoading = false;
         }
     }

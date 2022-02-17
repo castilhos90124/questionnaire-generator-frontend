@@ -46,7 +46,8 @@
     },
     "messages": {
         "retrieveNewPassword": "You forgot your password? Here you can easily retrieve a new password.",
-        "recoverYourPasswordNow": "You are only one step a way from your new password, recover your password now."
+        "recoverYourPasswordNow": "You are only one step a way from your new password, recover your password now.",
+        "loginError": "Email ou senha incorretos."
     },
     "buttons": {
         "requestNewPassword": "Request new password"
