@@ -24,7 +24,7 @@ export default class Main extends Vue {
         this.appElement.classList.add('sidebar-mini');
         this.appElement.classList.add('layout-fixed');
         try {
-            const user = await getProfile();
+            const user = getProfile();
             this.$store.dispatch('auth/getUser', user);
         } catch (error) {
             this.$store.dispatch('auth/logout');
