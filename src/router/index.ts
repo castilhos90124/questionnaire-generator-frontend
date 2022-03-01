@@ -9,7 +9,8 @@ import Dashboard from '@/pages/dashboard/dashboard.vue';
 import Profile from '@/pages/profile/profile.vue';
 import ForgotPassword from '@/modules/forgot-password/forgot-password.vue';
 import RecoverPassword from '@/modules/recover-password/recover-password.vue';
-import SubMenu from '@/pages/main-menu/sub-menu/sub-menu.vue';
+import NewQuestion from '@/pages/main-menu/new-question/new-question.vue';
+import Category from '@/pages/main-menu/category/category.vue';
 import Blank from '@/pages/blank/blank.vue';
 
 const routes: Array<RouteRecordRaw> = [
@@ -38,9 +39,17 @@ const routes: Array<RouteRecordRaw> = [
                 }
             },
             {
-                path: 'sub-menu-1',
-                name: 'Sub Menu 1',
-                component: SubMenu,
+                path: 'new-question',
+                name: 'New Question',
+                component: NewQuestion,
+                meta: {
+                    requiresAuth: true
+                }
+            },
+            {
+                path: 'new-categorie',
+                name: 'New Categorie',
+                component: Category,
                 meta: {
                     requiresAuth: true
                 }

@@ -2,8 +2,6 @@
     "labels": {
         "rememberMe": "Lembrar",
         "signIn": "Login",
-        "signUpUsingFB": "Sign up using Facebook",
-        "signUpUsingGoogle": "Sign up using Google",
         "forgotPassword": "I forgot my password",
         "registerMembership": "Register a new membership",
         "login": "Login",
@@ -37,22 +35,23 @@
         "alreadyHaveMembership": "I already have a membership",
         "userProfile": "User Profile",
         "questionnaire": "Questionário",
-        "create": "Criar"
+        "create": "Criar",
+        "newQuestion": "Nova Questão",
+        "questionName": "Nome da questão",
+        "categories": "Categorias",
+        "newCategory": "Nova Categoria",
+        "categoryName": "Nome da Categoria",
+        "description": "Descrição"
     },
     "messages": {
         "retrieveNewPassword": "You forgot your password? Here you can easily retrieve a new password.",
         "recoverYourPasswordNow": "You are only one step a way from your new password, recover your password now.",
-        "loginError": "Email ou senha incorretos."
+        "loginError": "Email ou senha incorretos.",
+        "createCategorySuccess": "Categoria criada com sucesso",
+        "createCategoryError": "Falha ao criar categoria",
+        "fillCategoryName": "Preencha o nome da categoria"
     },
     "buttons": {
         "requestNewPassword": "Request new password"
-    },
-    "languages": {
-        "english": "English",
-        "german": "German",
-        "french": "French",
-        "spanish": "Spanish",
-        "turkish": "Turkish",
-        "portuguese": "Português"
     }
 }

@@ -1,5 +1,5 @@
 import {Options, Vue} from 'vue-class-component';
-import {loginByAuth} from '@/services/auth';
+import {loginByAuth} from '@/services/services';
 import Checkbox from '@/components/checkbox/checkbox.vue';
 import Input from '@/components/input/input.vue';
 import Button from '@/components/button/button.vue';

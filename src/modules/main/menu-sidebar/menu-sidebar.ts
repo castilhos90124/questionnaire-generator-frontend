@@ -29,12 +29,21 @@ export const MENU = [
         children: [
             {
                 name: 'labels.create',
-                path: '/sub-menu-1'
+                path: '/new-question'
             },
 
             {
                 name: 'labels.blank',
                 path: '/sub-menu-2'
+            }
+        ]
+    },
+    {
+        name: 'labels.categories',
+        children: [
+            {
+                name: 'labels.create',
+                path: '/new-categorie'
             }
         ]
     }

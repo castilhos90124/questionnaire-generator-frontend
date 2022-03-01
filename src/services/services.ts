@@ -46,3 +46,19 @@ export const getProfile = () => {
         throw getError(error);
     }
 };
+
+export const createCategory = async (name: string, description: string) => {
+    try {
+        const payload = {
+            name,
+            info: description,
+            info_format: 'html',
+            moodle_id: null as number
+        };
+        const response = await axios.post('/categories', payload);
+
+        return response;
+    } catch (error: any) {
+        throw getError(error);
+    }
+};
