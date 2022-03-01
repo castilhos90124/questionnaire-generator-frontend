@@ -1,10 +1,5 @@
 # Questionnaire Generator Frontend
 
-To login website use:
-
-`username:` admin@example.com<br />
-`password:` admin<br />
-
 ## Project setup
 
 ### Compiles and hot-reloads for development

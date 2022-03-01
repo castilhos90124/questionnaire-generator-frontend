@@ -6,7 +6,7 @@ import {IAuthModule} from '@/interfaces/state';
 const authModule: IAuthModule = {
     namespaced: true,
     state: {
-        token: localStorage.getItem('gatekeeper_token'),
+        token: localStorage.getItem('token'),
         user: null
     },
     mutations,

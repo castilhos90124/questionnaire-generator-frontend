@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import {Gatekeeper} from 'gatekeeper-client-sdk';
 import axios from 'axios';
 
 const getError = (error: any) => {
@@ -14,13 +12,12 @@ const getError = (error: any) => {
 
 export const loginByAuth = async (email: string, password: string) => {
     try {
-        const loginUrl = `${process.env.VUE_APP_API_URL}/login`;
         const payload = {
             email: email,
             password: password,
             password_confirmation: password
         };
-        const token = await axios.post(loginUrl, payload);
+        const token = await axios.post('/login', payload);
 
         return token;
     } catch (error: any) {
@@ -30,7 +27,8 @@ export const loginByAuth = async (email: string, password: string) => {
 
 export const registerByAuth = async (email: string, password: string) => {
     try {
-        const token = await Gatekeeper.registerByAuth(email, password);
+        // TODO: implement register
+        const token = 'await registerByAuth(email, password)';
         return token;
     } catch (error: any) {
         throw getError(error);

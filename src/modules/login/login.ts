@@ -4,6 +4,7 @@ import Checkbox from '@/components/checkbox/checkbox.vue';
 import Input from '@/components/input/input.vue';
 import Button from '@/components/button/button.vue';
 import {useToast} from 'vue-toastification';
+import axios from 'axios';
 
 @Options({
     components: {
@@ -33,10 +34,14 @@ export default class Login extends Vue {
         try {
             this.isAuthLoading = true;
             const token = await loginByAuth(this.email, this.password);
+            if (this.rememberMe)
+                localStorage.setItem('token', token.data.token);
+            axios.defaults.headers.common[
+                'Authorization'
+            ] = `Bearer ${token.data.token}`;
             this.$store.dispatch('auth/login', token);
             this.isAuthLoading = false;
         } catch (error: any) {
-            console.log(error);
             this.toast.error(this.$t('messages.loginError'));
             this.isAuthLoading = false;
         }

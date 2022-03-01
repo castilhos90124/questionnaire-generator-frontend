@@ -111,13 +111,18 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-    if (to.meta.requiresAuth && !store.getters['auth/token']) {
+    if (to.meta.requiresAuth && !isLoggedIn()) {
         next('/login');
-    } else if (to.meta.requiresUnauth && !!store.getters['auth/token']) {
+    } else if (to.meta.requiresUnauth && isLoggedIn()) {
         next('/');
     } else {
         next();
     }
 });
+
+const isLoggedIn = () => {
+    const token = localStorage.getItem('token');
+    return !!store.getters['auth/token'] || !!token;
+};
 
 export default router;
