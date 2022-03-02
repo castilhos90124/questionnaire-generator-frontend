@@ -43,7 +43,11 @@ export const MENU = [
         children: [
             {
                 name: 'labels.create',
-                path: '/new-categorie'
+                path: '/new-category'
+            },
+            {
+                name: 'labels.manage',
+                path: '/manage-category'
             }
         ]
     }

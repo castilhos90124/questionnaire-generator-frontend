@@ -1,0 +1,39 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>{{ `${$t("labels.manage")} ${$t("labels.categories")}` }}</h1>
+            </div>
+        </div>
+    </div>
+    <!-- /.container-fluid -->
+</section>
+
+<div class="card">
+    <div class="card-header">
+      <h3 class="card-title">DataTable with default features</h3>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+      <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th v-for="column in columns">
+                {{column}}
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="category in categories">
+          <td>{{category.name}}</td>
+          <td>{{category.info}}</td>
+        </tr>
+        </tbody>
+
+      </table>
+    </div>
+    <!-- /.card-body -->
+  </div>
+  <!-- /.card -->
+
