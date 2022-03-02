@@ -17,9 +17,8 @@ export const loginByAuth = async (email: string, password: string) => {
             password: password,
             password_confirmation: password
         };
-        const token = await axios.post('/login', payload);
 
-        return token;
+        return await axios.post('/login', payload);
     } catch (error: any) {
         throw getError(error);
     }
@@ -55,9 +54,16 @@ export const createCategory = async (name: string, description: string) => {
             info_format: 'html',
             moodle_id: null as number
         };
-        const response = await axios.post('/categories', payload);
 
-        return response;
+        return await axios.post('/categories', payload);
+    } catch (error: any) {
+        throw getError(error);
+    }
+};
+
+export const getCategories = async () => {
+    try {
+        return await axios.get('/categories');
     } catch (error: any) {
         throw getError(error);
     }
