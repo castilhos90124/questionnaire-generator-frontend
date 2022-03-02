@@ -48,7 +48,8 @@
         "retrieveNewPassword": "You forgot your password? Here you can easily retrieve a new password.",
         "recoverYourPasswordNow": "You are only one step a way from your new password, recover your password now.",
         "loginError": "Email ou senha incorretos.",
-        "createCategorySuccess": "Categoria criada com sucesso",
+        "createItemSuccess": "Item criado com sucesso",
+        "removeItemSuccess": "Item removido com sucesso",
         "createCategoryError": "Falha ao criar categoria",
         "fillCategoryName": "Preencha o nome da categoria"
     },

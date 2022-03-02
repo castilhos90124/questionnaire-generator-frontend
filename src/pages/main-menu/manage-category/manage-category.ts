@@ -1,12 +1,12 @@
 import {Vue} from 'vue-class-component';
-import {getCategories} from '@/services/services';
+import {getCategories, deleteCategory} from '@/services/services';
 import {useToast} from 'vue-toastification';
 
 export default class ManageCategory extends Vue {
     public categories: any;
     private toast = useToast();
 
-    private populateCategories() {
+    private updateCategoriesList() {
         getCategories().then(
             (response: any) => {
                 this.categories = response.data.data;
@@ -17,6 +17,10 @@ export default class ManageCategory extends Vue {
         );
     }
 
+    created() {
+        this.updateCategoriesList();
+    }
+
     data() {
         return {
             columns: ['Nome', 'Descrição'],
@@ -24,7 +28,17 @@ export default class ManageCategory extends Vue {
         };
     }
 
-    created() {
-        this.populateCategories();
+    public onEdit(index: number) {
+        console.log(index);
+    }
+
+    private onDelete(index: number) {
+        deleteCategory(this.categories[index].id).then(
+            () => {
+                this.toast.success(this.$t('messages.removeItemSuccess'));
+                this.updateCategoriesList();
+            },
+            (error: any) => this.toast.error(error.message)
+        );
     }
 }

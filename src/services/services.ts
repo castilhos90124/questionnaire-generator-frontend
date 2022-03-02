@@ -68,3 +68,11 @@ export const getCategories = async () => {
         throw getError(error);
     }
 };
+
+export const deleteCategory = async (id: string) => {
+    try {
+        return await axios.delete(`/categories/${id}`);
+    } catch (error: any) {
+        throw getError(error);
+    }
+};

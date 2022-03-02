@@ -20,13 +20,16 @@ export default class Category extends Vue {
             this.toast.error(this.$t('messages.fillCategoryName'));
             return;
         }
-        try {
-            this.isLoading = true;
-            await createCategory(this.name, this.description);
-            this.isLoading = false;
-        } catch (error: any) {
-            this.toast.error(error.message);
-            this.isLoading = false;
-        }
+        this.isLoading = true;
+        createCategory(this.name, this.description).then(
+            () => {
+                this.isLoading = false;
+                this.toast.success(this.$t('messages.createItemSuccess'));
+            },
+            (error: any) => {
+                this.toast.error(error.message);
+                this.isLoading = false;
+            }
+        );
     }
 }

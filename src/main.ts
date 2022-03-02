@@ -23,7 +23,7 @@ axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem(
     'token'
 )}`;
 
-const options: PluginOptions = {};
+const options: PluginOptions = {timeout: 2000};
 const i18n = createI18n({
     locale: 'pt',
     messages: {pt},
