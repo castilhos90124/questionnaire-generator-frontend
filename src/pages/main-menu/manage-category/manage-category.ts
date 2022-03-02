@@ -4,23 +4,27 @@ import {useToast} from 'vue-toastification';
 
 export default class ManageCategory extends Vue {
     public categories: any;
-    created() {
-        this.populateCategories();
-    }
     private toast = useToast();
-    private async populateCategories(): Promise<void> {
-        let response;
-        try {
-            response = await getCategories();
-            this.categories = response.data.data;
-        } catch (error: any) {
-            this.toast.error(error.message);
-        }
+
+    private populateCategories() {
+        getCategories().then(
+            (response: any) => {
+                this.categories = response.data.data;
+            },
+            (error: any) => {
+                this.toast.error(error.message);
+            }
+        );
     }
+
     data() {
         return {
             columns: ['Nome', 'Descrição'],
             categories: this.categories
         };
+    }
+
+    created() {
+        this.populateCategories();
     }
 }
