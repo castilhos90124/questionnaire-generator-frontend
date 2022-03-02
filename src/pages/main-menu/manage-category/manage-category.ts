@@ -1,4 +1,3 @@
-
 import {Vue} from 'vue-class-component';
 import {useToast} from 'vue-toastification';
 
