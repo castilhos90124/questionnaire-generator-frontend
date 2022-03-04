@@ -39,8 +39,8 @@ export default class ManageCategory extends Vue {
             (response: any) => {
                 this.categories = response.data.data;
             },
-            (error: any) => {
-                this.toast.error(error.message);
+            () => {
+                this.toast.error(this.$t('messages.getFailed'));
             }
         );
     }

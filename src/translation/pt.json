@@ -54,7 +54,8 @@
         "createItemSuccess": "Item criado com sucesso",
         "removeItemSuccess": "Item removido com sucesso",
         "createCategoryError": "Falha ao criar categoria",
-        "fillCategoryName": "Preencha o nome da categoria"
+        "fillCategoryName": "Preencha o nome da categoria",
+        "getFailed": "Falha ao buscar os dados"
     },
     "buttons": {
         "requestNewPassword": "Request new password"

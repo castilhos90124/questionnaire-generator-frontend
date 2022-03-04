@@ -18,9 +18,9 @@
             <th v-for="column in columns">
                 {{column}}
             </th>
-            <th>
-              <a href="#" class="btn" @click="onOpenModal('create')">
-                <i class="fas fa-plus-circle"></i>
+            <th class="action-column">
+              <a href="#" class="btn create-item" @click="onOpenModal('create')">
+                <i class="fas fa-plus-circle fa-2x"></i>
               </a>
             </th>
         </tr>
@@ -29,11 +29,11 @@
         <tr v-for="(category, index) in categories">
           <td>{{category.name}}</td>
           <td>{{category.info}}</td>
-          <td style="width: 15%;">
+          <td>
             <a href="#" class="btn" @click="onOpenModal(index)">
               <i class="fas fa-pen"></i>
             </a>
-            <a href="#" class="btn" @click="onDelete(index)">
+            <a href="#" class="btn button-trash" @click="onDelete(index)">
               <i class="fas fa-trash"></i>
             </a>
           </td>

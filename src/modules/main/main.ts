@@ -12,7 +12,7 @@ import {getProfile} from '@/services/services';
     },
     watch: {
         watchLayoutChanges: (value) => {
-            console.log(value);
+            // console.log(value);
         }
     }
 })
@@ -44,7 +44,7 @@ export default class Main extends Vue {
         if (!this.appElement) {
             return;
         }
-        console.log(this.screenSize, this.isSidebarMenuCollapsed);
+        // console.log(this.screenSize, this.isSidebarMenuCollapsed);
         this.appElement.classList.remove('sidebar-closed');
         this.appElement.classList.remove('sidebar-collapse');
         this.appElement.classList.remove('sidebar-open');
