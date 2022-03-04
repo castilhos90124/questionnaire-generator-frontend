@@ -61,6 +61,23 @@ export const createCategory = async (name: string, description: string) => {
     }
 };
 
+export const updateCategory = async (
+    id: string,
+    name: string,
+    description: string
+) => {
+    try {
+        const payload = {
+            name,
+            info: description
+        };
+
+        return await axios.put(`/categories/${id}`, payload);
+    } catch (error: any) {
+        throw getError(error);
+    }
+};
+
 export const getCategories = async () => {
     try {
         return await axios.get('/categories');

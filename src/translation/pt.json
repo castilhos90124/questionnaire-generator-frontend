@@ -39,15 +39,18 @@
         "newQuestion": "Nova Questão",
         "questionName": "Nome da questão",
         "categories": "Categorias",
+        "category": "Categoria",
         "newCategory": "Nova Categoria",
         "categoryName": "Nome da Categoria",
         "description": "Descrição",
-        "manage": "Gerenciar"
+        "manage": "Gerenciar",
+        "edit": "Editar"
     },
     "messages": {
         "retrieveNewPassword": "You forgot your password? Here you can easily retrieve a new password.",
         "recoverYourPasswordNow": "You are only one step a way from your new password, recover your password now.",
         "loginError": "Email ou senha incorretos.",
+        "editItemSuccess": "Item editado com sucesso",
         "createItemSuccess": "Item criado com sucesso",
         "removeItemSuccess": "Item removido com sucesso",
         "createCategoryError": "Falha ao criar categoria",

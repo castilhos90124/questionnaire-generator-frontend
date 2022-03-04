@@ -40,15 +40,6 @@ export const MENU = [
     },
     {
         name: 'labels.categories',
-        children: [
-            {
-                name: 'labels.create',
-                path: '/new-category'
-            },
-            {
-                name: 'labels.manage',
-                path: '/manage-category'
-            }
-        ]
+        path: '/manage-category'
     }
 ];
