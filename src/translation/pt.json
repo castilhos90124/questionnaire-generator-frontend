@@ -64,7 +64,9 @@
         "removeItemSuccess": "Item removido com sucesso",
         "createCategoryError": "Falha ao criar categoria",
         "fillCategoryName": "Preencha o nome da categoria",
-        "getFailed": "Falha ao buscar os dados"
+        "getFailed": "Falha ao buscar os dados",
+        "fillAllRequiredFields": "Preencha todos os campos obrigatórios"
+
     },
     "buttons": {
         "requestNewPassword": "Request new password"

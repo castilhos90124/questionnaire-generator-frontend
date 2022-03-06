@@ -8,6 +8,8 @@ import {useToast} from 'vue-toastification';
 import Modal from '@/components/modal/modal.vue';
 import Button from '@/components/button/button.vue';
 
+const initalAnswersQuantity = 2;
+
 @Options({
     components: {
         'app-modal': Modal,
@@ -25,8 +27,8 @@ export default class ManageQuestion extends Vue {
     private isEditing: boolean = false;
     private selectedCategoryIndex: string;
     private questionDifficulty: number;
-    private selectedAnswersQuantity: string = '2';
-    private answersQuantity: number = 2;
+    private selectedAnswersQuantity: string = initalAnswersQuantity.toString();
+    private answersQuantity: number = initalAnswersQuantity;
     private correctAnswer: number;
     private answersText: any = {1: '', 2: '', 3: '', 4: '', 5: ''};
 
@@ -57,8 +59,8 @@ export default class ManageQuestion extends Vue {
         }
     }
     private onSubmit() {
-        if (!this.name || !this.questionText || !this.categoryId) {
-            this.toast.error(this.$t('messages.fillCategoryName'));
+        if (!this.hasFilledAllInputs()) {
+            this.toast.error(this.$t('messages.fillAllRequiredFields'));
             return;
         }
         this.isLoading = true;
@@ -71,7 +73,21 @@ export default class ManageQuestion extends Vue {
     private onChangeCategory() {
         this.categoryId = this.categories[this.selectedCategoryIndex].id;
     }
-    private toggleModal() {
+
+    private hasFilledAllInputs(): boolean {
+        for (let i = 1; i <= this.answersQuantity; i++) {
+            if (!this.answersText[i]) return false;
+        }
+        return !!(
+            this.name &&
+            this.categoryId &&
+            this.questionText &&
+            this.questionDifficulty &&
+            this.correctAnswer
+        );
+    }
+
+    private toggleModal(): void {
         this.modalActive = !this.modalActive;
         this.cleanData();
     }
@@ -99,7 +115,6 @@ export default class ManageQuestion extends Vue {
         )
             .then(
                 (response) => {
-                    debugger;
                     createAnswers(
                         this.answersText,
                         this.correctAnswer,
