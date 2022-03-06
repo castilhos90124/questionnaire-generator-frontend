@@ -1,0 +1,151 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>{{ `${$t("labels.manage")} ${$t("labels.questions")}` }}</h1>
+      </div>
+    </div>
+  </div>
+  <!-- /.container-fluid -->
+</section>
+
+<div class="card">
+  <div class="card-body">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th v-for="column in columns">
+            {{column}}
+          </th>
+          <th class="action-column">
+            <a href="#" class="btn create-item" @click="onOpenModal('create')">
+              <i class="fas fa-plus-circle fa-2x"></i>
+            </a>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(category, index) in categories">
+          <td>{{category.name}}</td>
+          <td>{{category.info}}</td>
+          <td>
+            <a href="#" class="btn" @click="onOpenModal(index)">
+              <i class="fas fa-pen"></i>
+            </a>
+            <a href="#" class="btn button-trash" @click="onDelete(index)">
+              <i class="fas fa-trash"></i>
+            </a>
+          </td>
+        </tr>
+
+      </tbody>
+
+    </table>
+  </div>
+</div>
+
+<transition name="modal-animation">
+  <div v-show="modalActive" class="my-modal">
+    <transition name="modal-animation-inner">
+      <div v-show="modalActive" class="modal-inner">
+        <i @click="toggleModal" class="far fa-times-circle"></i>
+
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+          <div class="container-fluid">
+            <div class="row mb-2">
+              <div class="col-sm-6">
+                <h1 v-if="isEditing">{{ $t("labels.edit") }} {{ $t("labels.category") }}</h1>
+                <h1 v-if="!isEditing">{{ $t("labels.create") }} {{ $t("labels.question") }}</h1>
+              </div>
+            </div>
+          </div>
+          <!-- /.container-fluid -->
+        </section>
+
+        <section class="content">
+          <!-- Default box -->
+          <div class="container-fluid">
+            <form @submit.prevent="onSubmit" class="form-horizontal">
+              <div class="form-group row">
+                <label for="categoryNameInput" class="col-sm-2 col-form-label">{{$t("labels.questionName")}}*</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="categoryNameInput" v-model="name" />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="inputDescription" class="col-sm-2 col-form-label">{{$t("labels.questionText")}}*</label>
+                <div class="col-sm-10">
+                  <textarea class="form-control" id="inputDescription" v-model="questionText"></textarea>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label>{{$t("labels.answersQuantity")}}*</label>
+                <div class="col-sm-6">
+                  <select class="custom-select" @change="onChangeAnswersQuantity()" v-model="selectedAnswersQuantity">
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                  </select>
+                </div>
+              </div>
+              <template v-for="i in answersQuantity">
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label">{{$t("labels.alternative")}} {{i}}*</label>
+                  <div class="col-sm-10">
+                    <textarea class="form-control" v-model="answersText[i]"></textarea>
+                  </div>
+                </div>
+              </template>
+              <div class="form-group row">
+                <div class="col-sm-3">
+                  <!-- select -->
+                  <div class="form-group">
+                    <label>{{$t("labels.correctAnswer")}}*</label>
+                      <select class="custom-select" v-model="correctAnswer">
+                        <option v-for="i in answersQuantity" :value="i">{{$t("labels.alternative")}} {{i}}</option>
+                      </select>
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="form-group">
+                    <label>{{$t("labels.difficulty")}}*</label>
+                    <select class="custom-select" v-model="questionDifficulty">
+                      <option value="-3">{{$t("labels.easy")}}</option>
+                      <option value="0">{{$t("labels.medium")}}</option>
+                      <option value="3">{{$t("labels.hard")}}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <!-- select -->
+                  <div class="form-group">
+                    <label>{{$t("labels.category")}}*</label>
+                    <select class="custom-select" @change="onChangeCategory()" v-model="selectedCategoryIndex">
+                      <option v-for="(category, index) in categories" :value="index">
+                        {{category.name}}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="offset-sm-2 col-sm-10">
+                  <app-button class="btn-primary" type="submit" :loading="isLoading">
+                    <span v-if="isEditing">{{ $t("labels.edit") }}</span>
+                    <span v-if="!isEditing">{{$t("labels.create")}}</span>
+                  </app-button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </section>
+
+
+        <slot />
+      </div>
+    </transition>
+  </div>
+</transition>

@@ -9,9 +9,9 @@ import Dashboard from '@/pages/dashboard/dashboard.vue';
 import Profile from '@/pages/profile/profile.vue';
 import ForgotPassword from '@/modules/forgot-password/forgot-password.vue';
 import RecoverPassword from '@/modules/recover-password/recover-password.vue';
-import NewQuestion from '@/pages/main-menu/new-question/new-question.vue';
 import ManageCategory from '@/pages/main-menu/manage-category/manage-category.vue';
 import Blank from '@/pages/blank/blank.vue';
+import ManageQuestion from '@/pages/main-menu/manage-question/manage-question.vue';
 
 const routes: Array<RouteRecordRaw> = [
     {
@@ -39,9 +39,9 @@ const routes: Array<RouteRecordRaw> = [
                 }
             },
             {
-                path: 'new-question',
-                name: 'New Question',
-                component: NewQuestion,
+                path: 'manage-question',
+                name: 'Manage Question',
+                component: ManageQuestion,
                 meta: {
                     requiresAuth: true
                 }

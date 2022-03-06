@@ -25,18 +25,8 @@ export const MENU = [
         path: '/blank'
     },
     {
-        name: 'labels.questionnaire',
-        children: [
-            {
-                name: 'labels.create',
-                path: '/new-question'
-            },
-
-            {
-                name: 'labels.blank',
-                path: '/sub-menu-2'
-            }
-        ]
+        name: 'labels.questions',
+        path: '/manage-question'
     },
     {
         name: 'labels.categories',

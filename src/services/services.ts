@@ -93,3 +93,55 @@ export const deleteCategory = async (id: string) => {
         throw getError(error);
     }
 };
+
+export const createQuestion = async (
+    name: string,
+    questionText: string,
+    categoryId: string,
+    questionDifficulty: number
+) => {
+    try {
+        const payload = {
+            name,
+            questiontext: questionText,
+            category_id: categoryId,
+            questiontext_format: 'html',
+            type: 'multiplechoice',
+            defaultgrade: 1,
+            ability: questionDifficulty,
+            discrimination: 0,
+            guess: 0,
+            moodle_id: null as number
+        };
+
+        return await axios.post('/questions', payload);
+    } catch (error: any) {
+        throw getError(error);
+    }
+};
+
+export const createAnswers = async (
+    answersText: any,
+    correctAnswer: number,
+    questionId: string
+) => {
+    try {
+        const payload = [];
+        for (const key in answersText) {
+            if (answersText[key]) {
+                const answer = {
+                    name: '',
+                    question_id: questionId,
+                    fraction: 1,
+                    is_correct: correctAnswer == parseInt(key) ? 1 : 0,
+                    text: answersText[key],
+                    moodle_id: null as number
+                };
+                payload.push(answer);
+            }
+        }
+        return await axios.post('/answers', payload);
+    } catch (error: any) {
+        throw getError(error);
+    }
+};
