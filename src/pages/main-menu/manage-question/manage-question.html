@@ -26,9 +26,15 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(category, index) in categories">
-          <td>{{category.name}}</td>
-          <td>{{category.info}}</td>
+        <tr v-for="(question, index) in questions">
+          <td>{{question.name}}</td>
+          <td>{{question.questiontext}}</td>
+          <td>{{getCategoryNameById(question.category_id)}}</td>
+
+          <td v-if="question.ability == -3">{{$t("labels.easy")}}</td>
+          <td v-if="question.ability == 0">{{$t("labels.medium")}}</td>
+          <td v-if="question.ability == 3">{{$t("labels.hard")}}</td>
+
           <td>
             <a href="#" class="btn" @click="onOpenModal(index)">
               <i class="fas fa-pen"></i>

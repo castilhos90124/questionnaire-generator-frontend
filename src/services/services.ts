@@ -120,6 +120,22 @@ export const createQuestion = async (
     }
 };
 
+export const getQuestions = async () => {
+    try {
+        return await axios.get('/questions');
+    } catch (error: any) {
+        throw getError(error);
+    }
+};
+
+export const deleteQuestion = async (id: string) => {
+    try {
+        return await axios.delete(`/questions/${id}`);
+    } catch (error: any) {
+        throw getError(error);
+    }
+};
+
 export const createAnswers = async (
     answersText: any,
     correctAnswer: number,

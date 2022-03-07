@@ -2,7 +2,9 @@ import {Options, Vue} from 'vue-class-component';
 import {
     getCategories,
     createAnswers,
-    createQuestion
+    createQuestion,
+    getQuestions,
+    deleteQuestion
 } from '@/services/services';
 import {useToast} from 'vue-toastification';
 import Modal from '@/components/modal/modal.vue';
@@ -18,6 +20,7 @@ const initalAnswersQuantity = 2;
 })
 export default class ManageQuestion extends Vue {
     private categories: any;
+    private questions: any;
     private modalActive = false;
     private toast = useToast();
     private name: string = '';
@@ -34,23 +37,15 @@ export default class ManageQuestion extends Vue {
 
     created() {
         this.updateCategoriesList();
+        this.updateQuestionsList();
     }
     data() {
         return {
-            columns: ['Nome', 'Descrição'],
-            categories: this.categories
+            columns: ['Nome', 'Enunciado', 'Categoria', 'Dificuldade'],
+            questions: this.questions
         };
     }
-    private updateCategoriesList() {
-        getCategories().then(
-            (response: any) => {
-                this.categories = response.data.data;
-            },
-            () => {
-                this.toast.error(this.$t('messages.getFailed'));
-            }
-        );
-    }
+
     private onOpenModal(index: any) {
         this.toggleModal();
         if (typeof index === 'number') {
@@ -58,6 +53,7 @@ export default class ManageQuestion extends Vue {
             this.isEditing = true;
         }
     }
+
     private onSubmit() {
         if (!this.hasFilledAllInputs()) {
             this.toast.error(this.$t('messages.fillAllRequiredFields'));
@@ -67,9 +63,11 @@ export default class ManageQuestion extends Vue {
         if (this.isEditing) this.update();
         else this.create();
     }
+
     private onChangeAnswersQuantity() {
         this.answersQuantity = parseInt(this.selectedAnswersQuantity);
     }
+
     private onChangeCategory() {
         this.categoryId = this.categories[this.selectedCategoryIndex].id;
     }
@@ -91,9 +89,11 @@ export default class ManageQuestion extends Vue {
         this.modalActive = !this.modalActive;
         this.cleanData();
     }
+
     private setEditedRow(index: number) {
         console.log('setEditedRow', index);
     }
+
     private cleanData() {
         this.name = '';
         this.questionText = '';
@@ -106,6 +106,7 @@ export default class ManageQuestion extends Vue {
             this.answersText[key] = '';
         }
     }
+
     private create() {
         createQuestion(
             this.name,
@@ -121,6 +122,7 @@ export default class ManageQuestion extends Vue {
                         response.data.id
                     ).then(
                         () => {
+                            this.updateQuestionsList();
                             this.toast.success(
                                 this.$t('messages.createItemSuccess')
                             );
@@ -139,11 +141,50 @@ export default class ManageQuestion extends Vue {
                 this.isLoading = false;
             });
     }
+
     private update() {
         console.log('update');
     }
 
     private onDelete(index: number) {
-        console.log('delete', index);
+        deleteQuestion(this.questions[index].id).then(
+            () => {
+                this.toast.success(this.$t('messages.removeItemSuccess'));
+                this.updateQuestionsList();
+            },
+            (error: any) => this.toast.error(error.message)
+        );
+    }
+
+    private updateQuestionsList() {
+        getQuestions().then(
+            (response: any) => {
+                this.questions = response.data.data;
+            },
+            () => {
+                this.toast.error(this.$t('messages.getFailed'));
+            }
+        );
+    }
+
+    private updateCategoriesList() {
+        getCategories().then(
+            (response: any) => {
+                this.categories = response.data.data;
+            },
+            () => {
+                this.toast.error(this.$t('messages.getFailed'));
+            }
+        );
+    }
+
+    private getCategoryNameById(id: string): string {
+        let categoryName = '';
+        this.categories.filter((item: any) => {
+            if (item.id === id) {
+                categoryName = item.name;
+            }
+        });
+        return categoryName;
     }
 }
