@@ -9,14 +9,12 @@ import {
     deleteQuestion
 } from '@/services/services';
 import {useToast} from 'vue-toastification';
-import Modal from '@/components/modal/modal.vue';
 import Button from '@/components/button/button.vue';
 
 const initalAnswersQuantity = 2;
 
 @Options({
     components: {
-        'app-modal': Modal,
         'app-button': Button
     }
 })
