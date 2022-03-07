@@ -2,8 +2,10 @@ import {Options, Vue} from 'vue-class-component';
 import {
     getCategories,
     createAnswers,
+    updateAnswers,
     createQuestion,
     getQuestions,
+    updateQuestion,
     deleteQuestion
 } from '@/services/services';
 import {useToast} from 'vue-toastification';
@@ -27,6 +29,8 @@ export default class ManageQuestion extends Vue {
     private questionText: string = '';
     private isLoading: boolean = false;
     private categoryId: string;
+    private questionId: string;
+    private answersIds: string[] = [];
     private isEditing: boolean = false;
     private selectedCategoryIndex: string;
     private questionDifficulty: number;
@@ -80,7 +84,7 @@ export default class ManageQuestion extends Vue {
             this.name &&
             this.categoryId &&
             this.questionText &&
-            this.questionDifficulty &&
+            this.questionDifficulty !== undefined &&
             this.correctAnswer
         );
     }
@@ -91,11 +95,35 @@ export default class ManageQuestion extends Vue {
     }
 
     private setEditedRow(index: number) {
-        console.log('setEditedRow', index);
+        const question = this.questions[index];
+        this.questionId = question.id;
+        this.name = question.name;
+        this.questionText = question.questiontext;
+        this.selectedCategoryIndex = this.getCategoryIndexById(
+            question.category_id
+        );
+        this.onChangeCategory();
+        this.questionDifficulty = question.ability;
+        this.setAnswersValues(question.answers);
+    }
+
+    private setAnswersValues(answers: any) {
+        this.selectedAnswersQuantity = answers.length.toString();
+        this.onChangeAnswersQuantity();
+
+        for (const key in answers) {
+            const answerIndex = parseInt(key) + 1;
+            this.answersText[answerIndex] = answers[key].text;
+            if (answers[key].is_correct) {
+                this.correctAnswer = answerIndex;
+            }
+            this.answersIds[parseInt(key)] = answers[key].id;
+        }
     }
 
     private cleanData() {
         this.name = '';
+        this.questionId = '';
         this.questionText = '';
         this.categoryId = '';
         this.isEditing = false;
@@ -104,6 +132,9 @@ export default class ManageQuestion extends Vue {
         this.correctAnswer = undefined;
         for (const key in this.answersText) {
             this.answersText[key] = '';
+        }
+        for (const key in this.answersIds) {
+            this.answersIds[key] = '';
         }
     }
 
@@ -143,7 +174,40 @@ export default class ManageQuestion extends Vue {
     }
 
     private update() {
-        console.log('update');
+        updateQuestion(
+            this.questionId,
+            this.name,
+            this.questionText,
+            this.categoryId,
+            this.questionDifficulty
+        )
+            .then(
+                (response) => {
+                    updateAnswers(
+                        this.answersIds,
+                        this.answersText,
+                        this.correctAnswer,
+                        response.data.id
+                    ).then(
+                        () => {
+                            this.updateQuestionsList();
+                            this.toast.success(
+                                this.$t('messages.createItemSuccess')
+                            );
+                            this.toggleModal();
+                        },
+                        (error: any) => {
+                            this.toast.error(error.message);
+                        }
+                    );
+                },
+                (error: any) => {
+                    this.toast.error(error.message);
+                }
+            )
+            .finally(() => {
+                this.isLoading = false;
+            });
     }
 
     private onDelete(index: number) {
@@ -186,5 +250,11 @@ export default class ManageQuestion extends Vue {
             }
         });
         return categoryName;
+    }
+
+    private getCategoryIndexById(id: string): string {
+        return this.categories.findIndex((item: any) => {
+            return item.id === id;
+        });
     }
 }

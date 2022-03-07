@@ -120,6 +120,27 @@ export const createQuestion = async (
     }
 };
 
+export const updateQuestion = async (
+    id: string,
+    name: string,
+    questionText: string,
+    categoryId: string,
+    questionDifficulty: number
+) => {
+    try {
+        const payload = {
+            name,
+            questiontext: questionText,
+            category_id: categoryId,
+            ability: questionDifficulty
+        };
+
+        return await axios.put(`/questions/${id}`, payload);
+    } catch (error: any) {
+        throw getError(error);
+    }
+};
+
 export const getQuestions = async () => {
     try {
         return await axios.get('/questions');
@@ -157,6 +178,29 @@ export const createAnswers = async (
             }
         }
         return await axios.post('/answers', payload);
+    } catch (error: any) {
+        throw getError(error);
+    }
+};
+
+export const updateAnswers = async (
+    answersIds: string[],
+    answersText: any,
+    correctAnswer: number,
+    questionId: string
+) => {
+    try {
+        for (const key in answersText) {
+            const answerIndex = parseInt(key) - 1;
+            if (answersText[key]) {
+                const answer = {
+                    question_id: questionId,
+                    is_correct: correctAnswer == parseInt(key) ? 1 : 0,
+                    text: answersText[key]
+                };
+                await axios.put(`/answers/${answersIds[answerIndex]}`, answer);
+            }
+        }
     } catch (error: any) {
         throw getError(error);
     }

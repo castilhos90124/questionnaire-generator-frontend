@@ -62,7 +62,7 @@
           <div class="container-fluid">
             <div class="row mb-2">
               <div class="col-sm-6">
-                <h1 v-if="isEditing">{{ $t("labels.edit") }} {{ $t("labels.category") }}</h1>
+                <h1 v-if="isEditing">{{ $t("labels.edit") }} {{ $t("labels.question") }}</h1>
                 <h1 v-if="!isEditing">{{ $t("labels.create") }} {{ $t("labels.question") }}</h1>
               </div>
             </div>
@@ -89,7 +89,7 @@
               <div class="form-group row">
                 <label>{{$t("labels.answersQuantity")}}*</label>
                 <div class="col-sm-6">
-                  <select class="custom-select" @change="onChangeAnswersQuantity()" v-model="selectedAnswersQuantity">
+                  <select class="custom-select" @change="onChangeAnswersQuantity()" v-model="selectedAnswersQuantity" disabled="isEditing">
                     <option value="2">2</option>
                     <option value="3">3</option>
                     <option value="4">4</option>
