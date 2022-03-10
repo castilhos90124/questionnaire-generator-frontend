@@ -21,7 +21,8 @@ const initalAnswersQuantity = 2;
 export default class ManageQuestion extends Vue {
     private categories: any;
     private questions: any;
-    private modalActive = false;
+    private modalActive: boolean = false;
+    private modalDeleteActive: boolean = false;
     private toast = useToast();
     private name: string = '';
     private questionText: string = '';
@@ -36,6 +37,7 @@ export default class ManageQuestion extends Vue {
     private answersQuantity: number = initalAnswersQuantity;
     private correctAnswer: number;
     private answersText: any = {1: '', 2: '', 3: '', 4: '', 5: ''};
+    private deleteIndex: number;
 
     created() {
         this.updateCategoriesList();
@@ -208,14 +210,23 @@ export default class ManageQuestion extends Vue {
             });
     }
 
-    private onDelete(index: number) {
-        deleteQuestion(this.questions[index].id).then(
-            () => {
-                this.toast.success(this.$t('messages.removeItemSuccess'));
-                this.updateQuestionsList();
-            },
-            (error: any) => this.toast.error(error.message)
-        );
+    private onDelete() {
+        this.isLoading = true;
+        deleteQuestion(this.questions[this.deleteIndex].id)
+            .then(
+                () => {
+                    this.toast.success(this.$t('messages.removeItemSuccess'));
+                    this.updateQuestionsList();
+                    this.toggleDeleteModal();
+                },
+                (error: any) => this.toast.error(error.message)
+            )
+            .finally(() => (this.isLoading = false));
+    }
+
+    private toggleDeleteModal(index?: number) {
+        this.deleteIndex = index;
+        this.modalDeleteActive = !this.modalDeleteActive;
     }
 
     private updateQuestionsList() {

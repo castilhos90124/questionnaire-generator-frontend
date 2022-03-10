@@ -18,12 +18,14 @@ import Button from '@/components/button/button.vue';
 export default class ManageCategory extends Vue {
     private categories: any;
     private modalActive = false;
+    private modalDeleteActive = false;
     private toast = useToast();
     private name: string = '';
     private description: string = '';
     private isLoading: boolean = false;
     private categoryId: string;
     private isEditing: boolean = false;
+    private deleteIndex: number;
 
     created() {
         this.updateCategoriesList();
@@ -107,13 +109,22 @@ export default class ManageCategory extends Vue {
                 this.isLoading = false;
             });
     }
-    private onDelete(index: number) {
-        deleteCategory(this.categories[index].id).then(
-            () => {
-                this.toast.success(this.$t('messages.removeItemSuccess'));
-                this.updateCategoriesList();
-            },
-            (error: any) => this.toast.error(error.message)
-        );
+    private onDelete() {
+        this.isLoading = true;
+        deleteCategory(this.categories[this.deleteIndex].id)
+            .then(
+                () => {
+                    this.toast.success(this.$t('messages.removeItemSuccess'));
+                    this.updateCategoriesList();
+                    this.toggleDeleteModal();
+                },
+                (error: any) => this.toast.error(error.message)
+            )
+            .finally(() => (this.isLoading = false));
+    }
+
+    private toggleDeleteModal(index?: number) {
+        this.deleteIndex = index;
+        this.modalDeleteActive = !this.modalDeleteActive;
     }
 }

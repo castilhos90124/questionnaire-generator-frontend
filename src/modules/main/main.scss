@@ -25,14 +25,17 @@
 .fa-trash{
   color: red;
 }
-.button-trash{
-  float: right;
-}
 .create-item{
   width: 100%;
 }
 .action-column{
   width: 107px;
+}
+.action-button{
+  float: right;
+}
+.second-button{
+  margin-right: 15px;
 }
 .my-modal {
   display: flex;

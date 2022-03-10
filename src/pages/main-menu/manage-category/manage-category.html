@@ -1,31 +1,31 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-sm-6">
-                <h1>{{ `${$t("labels.manage")} ${$t("labels.categories")}` }}</h1>
-            </div>
-        </div>
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>{{ `${$t("labels.manage")} ${$t("labels.categories")}` }}</h1>
+      </div>
     </div>
-    <!-- /.container-fluid -->
+  </div>
+  <!-- /.container-fluid -->
 </section>
 
 <div class="card">
-    <div class="card-body">
-      <table class="table table-bordered table-striped">
-        <thead>
+  <div class="card-body">
+    <table class="table table-bordered table-striped">
+      <thead>
         <tr>
-            <th v-for="column in columns">
-                {{column}}
-            </th>
-            <th class="action-column">
-              <a href="#" class="btn create-item" @click="onOpenModal('create')">
-                <i class="fas fa-plus-circle fa-2x"></i>
-              </a>
-            </th>
+          <th v-for="column in columns">
+            {{column}}
+          </th>
+          <th class="action-column">
+            <a href="#" class="btn create-item" @click="onOpenModal('create')">
+              <i class="fas fa-plus-circle fa-2x"></i>
+            </a>
+          </th>
         </tr>
-        </thead>
-        <tbody>
+      </thead>
+      <tbody>
         <tr v-for="(category, index) in categories">
           <td>{{category.name}}</td>
           <td>{{category.info}}</td>
@@ -33,96 +33,109 @@
             <a href="#" class="btn" @click="onOpenModal(index)">
               <i class="fas fa-pen"></i>
             </a>
-            <a href="#" class="btn button-trash" @click="onDelete(index)">
+            <a href="#" class="btn action-button" @click="toggleDeleteModal(index)">
               <i class="fas fa-trash"></i>
             </a>
           </td>
         </tr>
 
-        </tbody>
+      </tbody>
 
-      </table>
-    </div>
+    </table>
+  </div>
 </div>
 
-  <transition name="modal-animation">
-    <div v-show="modalActive" class="my-modal">
-      <transition name="modal-animation-inner">
-        <div v-show="modalActive" class="modal-inner">
-          <i @click="toggleModal" class="far fa-times-circle"></i>
+<transition name="modal-animation">
+  <div v-show="modalActive" class="my-modal">
+    <transition name="modal-animation-inner">
+      <div v-show="modalActive" class="modal-inner">
+        <i @click="toggleModal" class="far fa-times-circle"></i>
 
-          <!-- Content Header (Page header) -->
-          <section class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1 v-if="isEditing">{{ $t("labels.edit") }} {{ $t("labels.category") }}</h1>
-                        <h1 v-if="!isEditing">{{ $t("labels.create") }} {{ $t("labels.category") }}</h1>
-                    </div>
-                </div>
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+          <div class="container-fluid">
+            <div class="row mb-2">
+              <div class="col-sm-6">
+                <h1 v-if="isEditing">{{ $t("labels.edit") }} {{ $t("labels.category") }}</h1>
+                <h1 v-if="!isEditing">{{ $t("labels.create") }} {{ $t("labels.category") }}</h1>
+              </div>
             </div>
-            <!-- /.container-fluid -->
-          </section>
-
-          <section class="content">
-            <!-- Default box -->
-            <div class="container-fluid">
-                <form @submit.prevent="onSubmit" class="form-horizontal">
-                    <div class="form-group row">
-                        <label
-                            for="categoryNameInput"
-                            class="col-sm-2 col-form-label"
-                            >{{$t("labels.categoryName")}}*</label
-                        >
-                        <div class="col-sm-10">
-                            <input
-                                type="text"
-                                class="form-control"
-                                id="categoryNameInput"
-                                v-model="name"
-                            />
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label
-                            for="inputDescription"
-                            class="col-sm-2 col-form-label"
-                            >{{$t("labels.description")}}</label
-                        >
-                        <div class="col-sm-10">
-                            <textarea
-                                class="form-control"
-                                id="inputDescription"
-                                v-model="description"
-                            ></textarea>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="offset-sm-2 col-sm-10">
-                            <app-button
-                              class="btn-primary"
-                              type="submit"
-                              :loading="isLoading"
-                            >
-                            <span v-if="isEditing">{{ $t("labels.edit") }}</span>
-                            <span v-if="!isEditing">{{$t("labels.create")}}</span>
-                            </app-button>
-                        </div>
-                    </div>
-                </form>
-            </div>
+          </div>
+          <!-- /.container-fluid -->
         </section>
 
+        <section class="content">
+          <!-- Default box -->
+          <div class="container-fluid">
+            <form @submit.prevent="onSubmit" class="form-horizontal">
+              <div class="form-group row">
+                <label for="categoryNameInput" class="col-sm-2 col-form-label">{{$t("labels.categoryName")}}*</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="categoryNameInput" v-model="name" />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="inputDescription" class="col-sm-2 col-form-label">{{$t("labels.description")}}</label>
+                <div class="col-sm-10">
+                  <textarea class="form-control" id="inputDescription" v-model="description"></textarea>
+                </div>
+              </div>
+              <div class="form-group row action-button">
+                <div class="offset-sm-2 col-sm-10">
+                  <app-button class="btn-primary" type="submit" :loading="isLoading">
+                    <span v-if="isEditing">{{ $t("labels.edit") }}</span>
+                    <span v-if="!isEditing">{{$t("labels.create")}}</span>
+                  </app-button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </section>
+      </div>
+    </transition>
+  </div>
+</transition>
 
-          <slot />
-        </div>
-      </transition>
-    </div>
-  </transition>
+<transition name="modal-animation">
+  <div v-show="modalDeleteActive" class="my-modal">
+    <transition name="modal-animation-inner">
+      <div v-show="modalDeleteActive" class="modal-inner">
+        <i @click="toggleDeleteModal()" class="far fa-times-circle"></i>
 
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+          <div class="container-fluid">
+            <div class="row mb-2">
+              <div class="col-sm-6">
+                <h1>{{ $t("labels.delete") }} {{ $t("labels.category") }}</h1>
+              </div>
+            </div>
+          </div>
+          <!-- /.container-fluid -->
+        </section>
 
+        <section class="content">
+          <!-- Default box -->
+          <div class="container-fluid">
+            <!-- <form @submit="onDelete" class="form-horizontal"> -->
+              <div class="form-group row ">
+                <div class="offset-sm-2 col-sm-10">
+                  {{$t("messages.deleteItemConfirmation")}}
+                </div>
+              </div>
+              <div class="row action-button">
+                  <app-button class="btn-default second-button" @click="toggleDeleteModal()">
+                    <span >{{ $t("labels.cancel") }}</span>
+                  </app-button>
+                  <app-button class="btn-primary"  :loading="isLoading" @click="onDelete">
+                    <span >{{ $t("labels.delete") }}</span>
+                  </app-button>
+              </div>
+            <!-- </form> -->
 
-
-
-
-
+          </div>
+        </section>
+      </div>
+    </transition>
+  </div>
+</transition>

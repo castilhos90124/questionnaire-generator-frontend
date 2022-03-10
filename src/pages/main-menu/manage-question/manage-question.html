@@ -39,7 +39,7 @@
             <a href="#" class="btn" @click="onOpenModal(index)">
               <i class="fas fa-pen"></i>
             </a>
-            <a href="#" class="btn button-trash" @click="onDelete(index)">
+            <a href="#" class="btn action-button" @click="toggleDeleteModal(index)">
               <i class="fas fa-trash"></i>
             </a>
           </td>
@@ -89,7 +89,7 @@
               <div class="form-group row">
                 <label>{{$t("labels.answersQuantity")}}*</label>
                 <div class="col-sm-6">
-                  <select class="custom-select" @change="onChangeAnswersQuantity()" v-model="selectedAnswersQuantity" disabled="isEditing">
+                  <select class="custom-select" @change="onChangeAnswersQuantity()" v-model="selectedAnswersQuantity" :disabled="isEditing">
                     <option value="2">2</option>
                     <option value="3">3</option>
                     <option value="4">4</option>
@@ -137,7 +137,7 @@
                   </div>
                 </div>
               </div>
-              <div class="form-group row">
+              <div class="form-group row action-button">
                 <div class="offset-sm-2 col-sm-10">
                   <app-button class="btn-primary" type="submit" :loading="isLoading">
                     <span v-if="isEditing">{{ $t("labels.edit") }}</span>
@@ -148,9 +148,48 @@
             </form>
           </div>
         </section>
+      </div>
+    </transition>
+  </div>
+</transition>
 
+<transition name="modal-animation">
+  <div v-show="modalDeleteActive" class="my-modal">
+    <transition name="modal-animation-inner">
+      <div v-show="modalDeleteActive" class="modal-inner">
+        <i @click="toggleDeleteModal()" class="far fa-times-circle"></i>
 
-        <slot />
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+          <div class="container-fluid">
+            <div class="row mb-2">
+              <div class="col-sm-6">
+                <h1>{{ $t("labels.delete") }} {{ $t("labels.question") }}</h1>
+              </div>
+            </div>
+          </div>
+          <!-- /.container-fluid -->
+        </section>
+
+        <section class="content">
+          <!-- Default box -->
+          <div class="container-fluid">
+              <div class="form-group row ">
+                <div class="offset-sm-2 col-sm-10">
+                  {{$t("messages.deleteItemConfirmation")}}
+                </div>
+              </div>
+              <div class="row action-button">
+                  <app-button class="btn-default second-button" @click="toggleDeleteModal()">
+                    <span >{{ $t("labels.cancel") }}</span>
+                  </app-button>
+                  <app-button class="btn-primary"  :loading="isLoading" @click="onDelete">
+                    <span >{{ $t("labels.delete") }}</span>
+                  </app-button>
+              </div>
+
+          </div>
+        </section>
       </div>
     </transition>
   </div>
