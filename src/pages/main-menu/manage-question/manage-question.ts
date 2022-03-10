@@ -38,6 +38,7 @@ export default class ManageQuestion extends Vue {
     private correctAnswer: number;
     private answersText: any = {1: '', 2: '', 3: '', 4: '', 5: ''};
     private deleteIndex: number;
+    private questionTextMaxChars = 350;
 
     created() {
         this.updateCategoriesList();
