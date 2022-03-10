@@ -50,10 +50,12 @@
   .modal-inner {
     position: relative;
     max-width: 940px;
-    width: 90%;
+    width: 70%;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     background-color: #fff;
     padding: 24px 16px;
+    overflow-y: auto;
+    max-height: 80%;
     i {
       position: absolute;
       top: 15px;

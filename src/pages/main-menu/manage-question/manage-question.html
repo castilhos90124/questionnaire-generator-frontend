@@ -1,4 +1,3 @@
-<!-- Content Header (Page header) -->
 <section class="content-header">
   <div class="container-fluid">
     <div class="row mb-2">
@@ -7,7 +6,6 @@
       </div>
     </div>
   </div>
-  <!-- /.container-fluid -->
 </section>
 
 <div class="card">
@@ -55,9 +53,8 @@
   <div v-show="modalActive" class="my-modal">
     <transition name="modal-animation-inner">
       <div v-show="modalActive" class="modal-inner">
-        <i @click="toggleModal" class="far fa-times-circle"></i>
+        <i @click="toggleModal()" class="far fa-times-circle"></i>
 
-        <!-- Content Header (Page header) -->
         <section class="content-header">
           <div class="container-fluid">
             <div class="row mb-2">
@@ -67,23 +64,20 @@
               </div>
             </div>
           </div>
-          <!-- /.container-fluid -->
         </section>
 
         <section class="content">
-          <!-- Default box -->
           <div class="container-fluid">
-            <form @submit.prevent="onSubmit" class="form-horizontal">
               <div class="form-group row">
-                <label for="categoryNameInput" class="col-sm-2 col-form-label">{{$t("labels.questionName")}}*</label>
+                <label for="questionNameInput" class="col-sm-2 col-form-label">{{$t("labels.questionName")}}*</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" id="categoryNameInput" v-model="name" />
+                  <input type="text" class="form-control" id="questionNameInput" v-model="name" />
                 </div>
               </div>
               <div class="form-group row">
-                <label for="inputDescription" class="col-sm-2 col-form-label">{{$t("labels.questionText")}}*</label>
+                <label for="questionTextInput" class="col-sm-2 col-form-label">{{$t("labels.questionText")}}*</label>
                 <div class="col-sm-10">
-                  <textarea class="form-control" id="inputDescription" v-model="questionText"></textarea>
+                  <textarea class="form-control" id="questionTextInput" v-model="questionText"></textarea>
                 </div>
               </div>
               <div class="form-group row">
@@ -107,7 +101,6 @@
               </template>
               <div class="form-group row">
                 <div class="col-sm-3">
-                  <!-- select -->
                   <div class="form-group">
                     <label>{{$t("labels.correctAnswer")}}*</label>
                       <select class="custom-select" v-model="correctAnswer">
@@ -126,7 +119,6 @@
                   </div>
                 </div>
                 <div class="col-sm-6">
-                  <!-- select -->
                   <div class="form-group">
                     <label>{{$t("labels.category")}}*</label>
                     <select class="custom-select" @change="onChangeCategory()" v-model="selectedCategoryIndex">
@@ -138,14 +130,14 @@
                 </div>
               </div>
               <div class="form-group row action-button">
-                <div class="offset-sm-2 col-sm-10">
-                  <app-button class="btn-primary" type="submit" :loading="isLoading">
-                    <span v-if="isEditing">{{ $t("labels.edit") }}</span>
-                    <span v-if="!isEditing">{{$t("labels.create")}}</span>
-                  </app-button>
-                </div>
+                <app-button class="btn-default second-button" @click="toggleModal()">
+                  <span >{{ $t("labels.cancel") }}</span>
+                </app-button>
+                <app-button class="btn-primary" @click="onSubmit()" :loading="isLoading">
+                  <span v-if="isEditing">{{ $t("labels.edit") }}</span>
+                  <span v-if="!isEditing">{{$t("labels.create")}}</span>
+                </app-button>
               </div>
-            </form>
           </div>
         </section>
       </div>
@@ -159,7 +151,6 @@
       <div v-show="modalDeleteActive" class="modal-inner">
         <i @click="toggleDeleteModal()" class="far fa-times-circle"></i>
 
-        <!-- Content Header (Page header) -->
         <section class="content-header">
           <div class="container-fluid">
             <div class="row mb-2">
@@ -168,11 +159,9 @@
               </div>
             </div>
           </div>
-          <!-- /.container-fluid -->
         </section>
 
         <section class="content">
-          <!-- Default box -->
           <div class="container-fluid">
               <div class="form-group row ">
                 <div class="offset-sm-2 col-sm-10">
@@ -187,7 +176,6 @@
                     <span >{{ $t("labels.delete") }}</span>
                   </app-button>
               </div>
-
           </div>
         </section>
       </div>
