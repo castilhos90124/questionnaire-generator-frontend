@@ -78,22 +78,6 @@ export const updateCategory = async (
     }
 };
 
-export const getCategories = async () => {
-    try {
-        return await axios.get('/categories');
-    } catch (error: any) {
-        throw getError(error);
-    }
-};
-
-export const deleteCategory = async (id: string) => {
-    try {
-        return await axios.delete(`/categories/${id}`);
-    } catch (error: any) {
-        throw getError(error);
-    }
-};
-
 export const createQuestion = async (
     name: string,
     questionText: string,
@@ -136,22 +120,6 @@ export const updateQuestion = async (
         };
 
         return await axios.put(`/questions/${id}`, payload);
-    } catch (error: any) {
-        throw getError(error);
-    }
-};
-
-export const getQuestions = async () => {
-    try {
-        return await axios.get('/questions');
-    } catch (error: any) {
-        throw getError(error);
-    }
-};
-
-export const deleteQuestion = async (id: string) => {
-    try {
-        return await axios.delete(`/questions/${id}`);
     } catch (error: any) {
         throw getError(error);
     }
@@ -201,6 +169,63 @@ export const updateAnswers = async (
                 await axios.put(`/answers/${answersIds[answerIndex]}`, answer);
             }
         }
+    } catch (error: any) {
+        throw getError(error);
+    }
+};
+
+export const createStudent = async (
+    firstName: string,
+    lastName: string,
+    email: string
+) => {
+    try {
+        const payload = {
+            firstname: firstName,
+            lastname: lastName,
+            email,
+            username: '',
+            moodle_id: null as number
+        };
+
+        return await axios.post('/students', payload);
+    } catch (error: any) {
+        throw getError(error);
+    }
+};
+
+export const updateStudent = async (
+    firstName: string,
+    lastName: string,
+    email: string,
+    studentId: string
+) => {
+    try {
+        const payload = {
+            firstname: firstName,
+            lastname: lastName,
+            email,
+            username: '',
+            moodle_id: null as number
+        };
+
+        return await axios.put(`/students/${studentId}`, payload);
+    } catch (error: any) {
+        throw getError(error);
+    }
+};
+
+export const getRequest = async (path: string) => {
+    try {
+        return await axios.get(`/${path}`);
+    } catch (error: any) {
+        throw getError(error);
+    }
+};
+
+export const deleteRequest = async (path: string, id: string) => {
+    try {
+        return await axios.delete(`/${path}/${id}`);
     } catch (error: any) {
         throw getError(error);
     }

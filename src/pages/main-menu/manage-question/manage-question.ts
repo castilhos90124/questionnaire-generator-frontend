@@ -1,12 +1,11 @@
 import {Options, Vue} from 'vue-class-component';
 import {
-    getCategories,
+    getRequest,
     createAnswers,
     updateAnswers,
     createQuestion,
-    getQuestions,
     updateQuestion,
-    deleteQuestion
+    deleteRequest
 } from '@/services/services';
 import {useToast} from 'vue-toastification';
 import Button from '@/components/button/button.vue';
@@ -213,7 +212,7 @@ export default class ManageQuestion extends Vue {
 
     private onDelete() {
         this.isLoading = true;
-        deleteQuestion(this.questions[this.deleteIndex].id)
+        deleteRequest('questions', this.questions[this.deleteIndex].id)
             .then(
                 () => {
                     this.toast.success(this.$t('messages.removeItemSuccess'));
@@ -231,7 +230,7 @@ export default class ManageQuestion extends Vue {
     }
 
     private updateQuestionsList() {
-        getQuestions().then(
+        getRequest('questions').then(
             (response: any) => {
                 this.questions = response.data.data;
             },
@@ -242,7 +241,7 @@ export default class ManageQuestion extends Vue {
     }
 
     private updateCategoriesList() {
-        getCategories().then(
+        getRequest('categories').then(
             (response: any) => {
                 this.categories = response.data.data;
             },

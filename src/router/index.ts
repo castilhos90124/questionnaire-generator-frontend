@@ -10,8 +10,8 @@ import Profile from '@/pages/profile/profile.vue';
 import ForgotPassword from '@/modules/forgot-password/forgot-password.vue';
 import RecoverPassword from '@/modules/recover-password/recover-password.vue';
 import ManageCategory from '@/pages/main-menu/manage-category/manage-category.vue';
-import Blank from '@/pages/blank/blank.vue';
 import ManageQuestion from '@/pages/main-menu/manage-question/manage-question.vue';
+import ManageStudent from '@/pages/main-menu/manage-student/manage-student.vue';
 
 const routes: Array<RouteRecordRaw> = [
     {
@@ -26,14 +26,6 @@ const routes: Array<RouteRecordRaw> = [
                 path: 'profile',
                 name: 'Profile',
                 component: Profile,
-                meta: {
-                    requiresAuth: true
-                }
-            },
-            {
-                path: 'blank',
-                name: 'Blank',
-                component: Blank,
                 meta: {
                     requiresAuth: true
                 }
@@ -55,9 +47,9 @@ const routes: Array<RouteRecordRaw> = [
                 }
             },
             {
-                path: 'sub-menu-2',
-                name: 'Sub Menu 2',
-                component: Blank,
+                path: 'manage-student',
+                name: 'Manage Student',
+                component: ManageStudent,
                 meta: {
                     requiresAuth: true
                 }

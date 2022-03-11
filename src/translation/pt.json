@@ -56,7 +56,10 @@
         "delete": "Excluir",
         "cancel": "Cancelar",
         "students": "Alunos",
-        "student": "Aluno"
+        "student": "Aluno",
+        "name": "Nome",
+        "lastName": "Sobrenome",
+        "email": "Email"
     },
     "messages": {
         "retrieveNewPassword": "You forgot your password? Here you can easily retrieve a new password.",
@@ -69,7 +72,8 @@
         "fillCategoryName": "Preencha o nome da categoria",
         "getFailed": "Falha ao buscar os dados",
         "fillAllRequiredFields": "Preencha todos os campos obrigatórios",
-        "deleteItemConfirmation": "Tem certeza que deseja excluir esse item?"
+        "deleteItemConfirmation": "Tem certeza que deseja excluir esse item?",
+        "fillValidEmail": "Preencha um email válido"
     },
     "buttons": {
         "requestNewPassword": "Request new password"

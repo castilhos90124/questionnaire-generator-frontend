@@ -21,15 +21,15 @@ export const MENU = [
         path: '/'
     },
     {
-        name: 'labels.blank',
-        path: '/blank'
-    },
-    {
         name: 'labels.questions',
         path: '/manage-question'
     },
     {
         name: 'labels.categories',
         path: '/manage-category'
+    },
+    {
+        name: 'labels.students',
+        path: '/manage-student'
     }
 ];

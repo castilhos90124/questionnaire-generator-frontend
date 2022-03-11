@@ -1,43 +1,46 @@
 import {Options, Vue} from 'vue-class-component';
 import {
+    createStudent,
     getRequest,
-    updateCategory,
-    createCategory,
-    deleteRequest
+    deleteRequest,
+    updateStudent
 } from '@/services/services';
 import {useToast} from 'vue-toastification';
 import Button from '@/components/button/button.vue';
+import Input from '@/components/input/input.vue';
 
 @Options({
     components: {
-        'app-button': Button
+        'app-button': Button,
+        'app-input': Input
     }
 })
-export default class ManageCategory extends Vue {
-    private categories: any;
+export default class ManageStudent extends Vue {
+    private students: any;
     private modalActive = false;
     private modalDeleteActive = false;
     private toast = useToast();
-    private name: string = '';
-    private description: string = '';
+    private firstName: string = '';
+    private lastName: string = '';
+    private email: string = '';
+    private studentId: string = '';
     private isLoading: boolean = false;
-    private categoryId: string;
     private isEditing: boolean = false;
     private deleteIndex: number;
 
     created() {
-        this.updateCategoriesList();
+        this.updateStudentsList();
     }
     data() {
         return {
-            columns: ['Nome', 'Descrição'],
-            categories: this.categories
+            columns: ['Nome', 'Email', 'Habilidade', 'Notas'],
+            students: this.students
         };
     }
-    private updateCategoriesList() {
-        getRequest('categories').then(
+    private updateStudentsList() {
+        getRequest('students').then(
             (response: any) => {
-                this.categories = response.data.data;
+                this.students = response.data.data;
             },
             () => {
                 this.toast.error(this.$t('messages.getFailed'));
@@ -52,8 +55,12 @@ export default class ManageCategory extends Vue {
         }
     }
     private onSubmit() {
-        if (!this.name) {
-            this.toast.error(this.$t('messages.fillCategoryName'));
+        if (!this.firstName || !this.lastName || !this.email) {
+            this.toast.error(this.$t('messages.fillAllRequiredFields'));
+            return;
+        }
+        if (!this.isValidEmail(this.email)) {
+            this.toast.error(this.$t('messages.fillValidEmail'));
             return;
         }
         this.isLoading = true;
@@ -64,24 +71,38 @@ export default class ManageCategory extends Vue {
         this.modalActive = !this.modalActive;
         this.cleanEditedRow();
     }
+
+    private isValidEmail = (email: string): boolean => {
+        return Boolean(
+            String(email)
+                .toLowerCase()
+                .match(
+                    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+                )
+        );
+    };
+
     private setEditedRow(index: number) {
-        this.name = this.categories[index].name;
-        this.description = this.categories[index].info;
-        this.categoryId = this.categories[index].id;
+        const student = this.students[index];
+        this.studentId = student.id;
+        this.firstName = student.firstname;
+        this.lastName = student.lastname;
+        this.email = student.email;
     }
     private cleanEditedRow() {
-        this.name = '';
-        this.description = '';
-        this.categoryId = '';
+        this.firstName = '';
+        this.lastName = '';
+        this.email = '';
+        this.studentId = '';
         this.isEditing = false;
     }
     private create() {
-        createCategory(this.name, this.description)
+        createStudent(this.firstName, this.lastName, this.email)
             .then(
                 () => {
                     this.toast.success(this.$t('messages.createItemSuccess'));
                     this.toggleModal();
-                    this.updateCategoriesList();
+                    this.updateStudentsList();
                 },
                 (error: any) => {
                     this.toast.error(error.message);
@@ -92,12 +113,12 @@ export default class ManageCategory extends Vue {
             });
     }
     private update() {
-        updateCategory(this.categoryId, this.name, this.description)
+        updateStudent(this.firstName, this.lastName, this.email, this.studentId)
             .then(
                 () => {
                     this.toast.success(this.$t('messages.editItemSuccess'));
                     this.toggleModal();
-                    this.updateCategoriesList();
+                    this.updateStudentsList();
                 },
                 (error: any) => {
                     this.toast.error(error.message);
@@ -109,11 +130,11 @@ export default class ManageCategory extends Vue {
     }
     private onDelete() {
         this.isLoading = true;
-        deleteRequest('categories', this.categories[this.deleteIndex].id)
+        deleteRequest('students', this.students[this.deleteIndex].id)
             .then(
                 () => {
                     this.toast.success(this.$t('messages.removeItemSuccess'));
-                    this.updateCategoriesList();
+                    this.updateStudentsList();
                     this.toggleDeleteModal();
                 },
                 (error: any) => this.toast.error(error.message)
