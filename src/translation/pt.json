@@ -25,7 +25,6 @@
         "home": "Home",
         "contact": "Contact",
         "dashboard": "Dashboard",
-        "blank": "Blank",
         "mainMenu": "Main menu",
         "subMenu": "Sub menu",
         "privacyPolicy": "Privacy Policy",
@@ -55,7 +54,9 @@
         "manage": "Gerenciar",
         "edit": "Editar",
         "delete": "Excluir",
-        "cancel": "Cancelar"
+        "cancel": "Cancelar",
+        "students": "Alunos",
+        "student": "Aluno"
     },
     "messages": {
         "retrieveNewPassword": "You forgot your password? Here you can easily retrieve a new password.",
