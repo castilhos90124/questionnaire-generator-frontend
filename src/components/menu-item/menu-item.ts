@@ -16,12 +16,14 @@ export default class MenuItem extends Vue {
     private isExpandable: boolean = false;
     private isMainActive: boolean = false;
     private isOneOfChildrenActive: boolean = false;
+    private menuIconClass: string = '';
 
     public mounted(): void {
         this.isExpandable =
             this.menuItem &&
             this.menuItem.children &&
             this.menuItem.children.length > 0;
+        this.menuIconClass = this.getMenuIconClass(this.menuItem.name);
         this.calculateIsActive(this.$router.currentRoute.value.path);
         this.$router.afterEach((to) => {
             this.calculateIsActive(to.path);
@@ -55,6 +57,21 @@ export default class MenuItem extends Vue {
         }
         if (!this.isMainActive && !this.isOneOfChildrenActive) {
             this.isMenuExtended = false;
+        }
+    }
+
+    private getMenuIconClass(itemName: string): string {
+        switch (itemName.toLocaleLowerCase()) {
+            case 'labels.students':
+                return 'fa-user-graduate';
+            case 'labels.questions':
+                return 'fa-question';
+            case 'labels.dashboard':
+                return 'fa-chart-area';
+            case 'labels.categories':
+                return 'fa-book-open';
+            default:
+                return '';
         }
     }
 }
