@@ -3,7 +3,8 @@ import {
     createStudent,
     getRequest,
     deleteRequest,
-    updateStudent
+    updateStudent,
+    createStudentUser
 } from '@/services/services';
 import {useToast} from 'vue-toastification';
 import Button from '@/components/button/button.vue';
@@ -99,10 +100,26 @@ export default class ManageStudent extends Vue {
     private create() {
         createStudent(this.firstName, this.lastName, this.email)
             .then(
-                () => {
-                    this.toast.success(this.$t('messages.createItemSuccess'));
-                    this.toggleModal();
-                    this.updateStudentsList();
+                (response) => {
+                    const studentId = response.data.id;
+                    createStudentUser(
+                        this.firstName,
+                        this.lastName,
+                        this.email,
+                        studentId
+                    ).then(
+                        () => {
+                            this.toast.success(
+                                this.$t('messages.createItemSuccess')
+                            );
+                            this.toggleModal();
+                            this.updateStudentsList();
+                        },
+                        (error: any) => {
+                            deleteRequest('students', studentId);
+                            this.toast.error(error.message);
+                        }
+                    );
                 },
                 (error: any) => {
                     this.toast.error(error.message);

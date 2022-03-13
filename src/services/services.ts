@@ -198,6 +198,29 @@ export const createStudent = async (
     }
 };
 
+export const createStudentUser = async (
+    firstName: string,
+    lastName: string,
+    email: string,
+    studentId: string
+) => {
+    try {
+        const default_username = email.substring(0, email.indexOf('@'));
+        const payload = {
+            name: `${firstName} ${lastName}`,
+            email,
+            username: default_username,
+            password: default_username,
+            password_confirmation: default_username,
+            student_id: studentId
+        };
+
+        return await axios.post('/register', payload);
+    } catch (error: any) {
+        throw getError(error);
+    }
+};
+
 export const updateStudent = async (
     firstName: string,
     lastName: string,
