@@ -3,7 +3,9 @@ import {
     getRequest,
     updateCategory,
     createCategory,
-    deleteRequest
+    deleteRequest,
+    getCategoryNameById,
+    getCategoryIndexById
 } from '@/services/services';
 import {useToast} from 'vue-toastification';
 import Button from '@/components/button/button.vue';
@@ -24,13 +26,14 @@ export default class ManageCategory extends Vue {
     private categoryId: string;
     private isEditing: boolean = false;
     private deleteIndex: number;
+    private categoryMotherIndex: string;
 
     created() {
         this.updateCategoriesList();
     }
     data() {
         return {
-            columns: ['Nome', 'Descrição'],
+            columns: ['Nome', 'Descrição', 'Subcategoria da'],
             categories: this.categories
         };
     }
@@ -65,18 +68,27 @@ export default class ManageCategory extends Vue {
         this.cleanEditedRow();
     }
     private setEditedRow(index: number) {
-        this.name = this.categories[index].name;
-        this.description = this.categories[index].info;
-        this.categoryId = this.categories[index].id;
+        const category = this.categories[index];
+        this.name = category.name;
+        this.description = category.info;
+        this.categoryId = category.id;
+        this.categoryMotherIndex = getCategoryIndexById(
+            category.category_id,
+            this.categories
+        );
     }
+
     private cleanEditedRow() {
         this.name = '';
         this.description = '';
         this.categoryId = '';
+        this.categoryMotherIndex = undefined;
         this.isEditing = false;
     }
+
     private create() {
-        createCategory(this.name, this.description)
+        const categoryMotherId = this.categories[this.categoryMotherIndex]?.id;
+        createCategory(this.name, this.description, categoryMotherId)
             .then(
                 () => {
                     this.toast.success(this.$t('messages.createItemSuccess'));
@@ -124,5 +136,9 @@ export default class ManageCategory extends Vue {
     private toggleDeleteModal(index?: number) {
         this.deleteIndex = index;
         this.modalDeleteActive = !this.modalDeleteActive;
+    }
+
+    private getCategoryNameById(id: string): string {
+        return getCategoryNameById(id, this.categories);
     }
 }

@@ -59,7 +59,9 @@
         "student": "Aluno",
         "name": "Nome",
         "lastName": "Sobrenome",
-        "email": "Email"
+        "email": "Email",
+        "subCategory": "Subcategoria da",
+        "none": "Nenhuma"
     },
     "messages": {
         "retrieveNewPassword": "You forgot your password? Here you can easily retrieve a new password.",

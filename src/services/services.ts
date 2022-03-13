@@ -46,11 +46,16 @@ export const getProfile = () => {
     }
 };
 
-export const createCategory = async (name: string, description: string) => {
+export const createCategory = async (
+    name: string,
+    description: string,
+    categoryMotherId: string
+) => {
     try {
         const payload = {
             name,
             info: description,
+            category_id: categoryMotherId || null,
             info_format: 'html',
             moodle_id: null as number
         };
@@ -71,7 +76,6 @@ export const updateCategory = async (
             name,
             info: description
         };
-
         return await axios.put(`/categories/${id}`, payload);
     } catch (error: any) {
         throw getError(error);
@@ -229,4 +233,20 @@ export const deleteRequest = async (path: string, id: string) => {
     } catch (error: any) {
         throw getError(error);
     }
+};
+
+export const getCategoryNameById = (id: string, categoryList: any) => {
+    let categoryName = '';
+    categoryList.filter((item: any) => {
+        if (item.id === id) {
+            categoryName = item.name;
+        }
+    });
+    return categoryName;
+};
+
+export const getCategoryIndexById = (id: string, categoryList: any) => {
+    return categoryList.findIndex((item: any) => {
+        return item.id === id;
+    });
 };

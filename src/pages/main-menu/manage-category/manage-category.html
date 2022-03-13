@@ -29,6 +29,7 @@
         <tr v-for="(category, index) in categories">
           <td>{{category.name}}</td>
           <td>{{category.info}}</td>
+          <td>{{getCategoryNameById(category.category_id)}}</td>
           <td>
             <a href="#" class="btn" @click="onOpenModal(index)">
               <i class="fas fa-pen"></i>
@@ -76,6 +77,19 @@
                 <label for="inputDescription" class="col-sm-2 col-form-label">{{$t("labels.description")}}</label>
                 <div class="col-sm-10">
                   <textarea class="form-control" id="inputDescription" v-model="description"></textarea>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label">{{$t("labels.subCategory")}}</label>
+                <div class="col-sm-10">
+                  <select class="custom-select" v-model="categoryMotherIndex" :disabled="isEditing">
+                    <option value="">
+                      {{$t("labels.none")}}
+                    </option>
+                    <option v-for="(category, index) in categories" :value="index">
+                      {{category.name}}
+                    </option>
+                  </select>
                 </div>
               </div>
               <div class="form-group row action-button">

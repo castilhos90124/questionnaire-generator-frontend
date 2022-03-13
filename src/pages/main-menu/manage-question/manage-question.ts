@@ -5,7 +5,9 @@ import {
     updateAnswers,
     createQuestion,
     updateQuestion,
-    deleteRequest
+    deleteRequest,
+    getCategoryNameById,
+    getCategoryIndexById
 } from '@/services/services';
 import {useToast} from 'vue-toastification';
 import Button from '@/components/button/button.vue';
@@ -99,8 +101,9 @@ export default class ManageQuestion extends Vue {
         this.questionId = question.id;
         this.name = question.name;
         this.questionText = question.questiontext;
-        this.selectedCategoryIndex = this.getCategoryIndexById(
-            question.category_id
+        this.selectedCategoryIndex = getCategoryIndexById(
+            question.category_id,
+            this.categories
         );
         this.onChangeCategory();
         this.questionDifficulty = question.ability;
@@ -252,18 +255,6 @@ export default class ManageQuestion extends Vue {
     }
 
     private getCategoryNameById(id: string): string {
-        let categoryName = '';
-        this.categories.filter((item: any) => {
-            if (item.id === id) {
-                categoryName = item.name;
-            }
-        });
-        return categoryName;
-    }
-
-    private getCategoryIndexById(id: string): string {
-        return this.categories.findIndex((item: any) => {
-            return item.id === id;
-        });
+        return getCategoryNameById(id, this.categories);
     }
 }
