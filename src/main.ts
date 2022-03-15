@@ -12,6 +12,7 @@ import 'vue-toastification/dist/index.css';
 import {createI18n} from 'vue-i18n';
 import {VueWindowSizePlugin} from 'vue-window-size/option-api';
 
+import '@vueform/multiselect/themes/default.css';
 import pt from './translation/pt.json';
 import axios from 'axios';
 

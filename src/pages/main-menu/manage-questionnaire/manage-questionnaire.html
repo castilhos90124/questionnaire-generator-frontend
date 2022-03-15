@@ -3,7 +3,7 @@
   <div class="container-fluid">
     <div class="row mb-2">
       <div class="col-sm-6">
-        <h1>{{ `${$t("labels.manage")} ${$t("labels.categories")}` }}</h1>
+        <h1>{{ `${$t("labels.manage")} ${$t("labels.questionnaires")}` }}</h1>
       </div>
     </div>
   </div>
@@ -26,14 +26,20 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(category, index) in categories">
-          <td>{{category.name}}</td>
-          <td>{{category.info}}</td>
-          <td>{{getCategoryNameById(category.category_id)}}</td>
+        <tr v-for="(session, index) in sessions">
+          <td>{{getStudentNameById(session.student_id)}}</td>
+          <td>{{getCategoryNameById(session.category_id)}}</td>
+          <td>{{session.number_questions}}</td>
+
+          <td v-if="session.status == 1">{{$t("labels.created")}}</td>
+          <td v-if="session.status == 2">{{$t("labels.started")}}</td>
+          <td v-if="session.status == 3">{{$t("labels.answered")}}</td>
+          <td v-if="session.status == 4">{{$t("labels.finished")}}</td>
+
           <td class="action-column">
-            <a href="#" class="btn" @click="onOpenModal(index)">
+            <button class="btn" :disabled="session.status != 1" @click="onOpenModal(index)">
               <i class="fas fa-pen"></i>
-            </a>
+            </button>
             <a href="#" class="btn action-button" @click="toggleDeleteModal(index)">
               <i class="fas fa-trash"></i>
             </a>
@@ -57,8 +63,8 @@
           <div class="container-fluid">
             <div class="row mb-2">
               <div class="col-sm-6">
-                <h1 v-if="isEditing">{{ $t("labels.edit") }} {{ $t("labels.category") }}</h1>
-                <h1 v-if="!isEditing">{{ $t("labels.create") }} {{ $t("labels.category") }}</h1>
+                <h1 v-if="isEditing">{{ $t("labels.edit") }} {{ $t("labels.questionnaire") }}</h1>
+                <h1 v-if="!isEditing">{{ $t("labels.create") }} {{ $t("labels.questionnaire") }}</h1>
               </div>
             </div>
           </div>
@@ -68,28 +74,42 @@
         <section class="content">
           <div class="container-fluid">
               <div class="form-group row">
-                <label for="categoryNameInput" class="col-sm-2 col-form-label">{{$t("labels.categoryName")}}*</label>
-                <div class="col-sm-10">
-                  <input type="text" class="form-control" id="categoryNameInput" v-model="name" />
+                <label class="col-sm-2 col-form-label">{{$t("labels.students")}}*</label>
+                <div class="col-sm-7">
+                  <Multiselect
+                    mode="tags"
+                    v-model="selectedStudents"
+                    ref="multiselect"
+                    placeholder="Selecione os alunos que devem participar deste questionário"
+                    :close-on-select="false"
+                    :disabled="isEditing"
+                    :options="studentsNames"
+                  />
                 </div>
+                <div class="col-sm-3">
+                  <app-button :disabled="isEditing" class="btn-default second-button" @click="onSelectAll()">
+                    <span >{{ $t("labels.selectAll") }}</span>
+                  </app-button>
+                </div>
+
               </div>
               <div class="form-group row">
-                <label for="inputDescription" class="col-sm-2 col-form-label">{{$t("labels.description")}}</label>
+                <label for="selectCategory" class="col-sm-2 col-form-label">{{$t("labels.category")}}*</label>
                 <div class="col-sm-10">
-                  <textarea class="form-control" id="inputDescription" v-model="description"></textarea>
-                </div>
-              </div>
-              <div class="form-group row">
-                <label class="col-sm-2 col-form-label">{{$t("labels.subCategory")}}</label>
-                <div class="col-sm-10">
-                  <select class="custom-select" v-model="categoryMotherIndex" :disabled="isEditing">
-                    <option value="">
-                      {{$t("labels.none")}}
-                    </option>
+                  <select id="selectCategory" class="custom-select" v-model="selectedCategoryIndex">
                     <option v-for="(category, index) in categories" :value="index">
                       {{category.name}}
                     </option>
                   </select>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="numberOfQuestions" class="col-sm-2 col-form-label">{{$t("labels.numberOfQuestions")}}*</label>
+                <div class="col-sm-6">
+                  <input type="range" min="15" max="20" class="form-control custom-range" id="numberOfQuestions" v-model="questionsQuantity">
+                </div>
+                <div class="col-sm-4">
+                  {{questionsQuantity}}
                 </div>
               </div>
               <div class="form-group row action-button">

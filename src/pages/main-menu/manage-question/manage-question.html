@@ -16,7 +16,7 @@
           <th v-for="column in columns">
             {{column}}
           </th>
-          <th class="action-column">
+          <th class="action-header">
             <a href="#" class="btn create-item" @click="onOpenModal('create')">
               <i class="fas fa-plus-circle fa-2x"></i>
             </a>
@@ -35,7 +35,7 @@
           <td v-if="question.ability == 0">{{$t("labels.medium")}}</td>
           <td v-if="question.ability == 3">{{$t("labels.hard")}}</td>
 
-          <td>
+          <td class="action-column">
             <a href="#" class="btn" @click="onOpenModal(index)">
               <i class="fas fa-pen"></i>
             </a>

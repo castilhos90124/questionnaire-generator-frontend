@@ -70,6 +70,8 @@ export default class MenuItem extends Vue {
                 return 'fa-chart-area';
             case 'labels.categories':
                 return 'fa-book-open';
+            case 'labels.questionnaires':
+                return 'fa-comment';
             default:
                 return '';
         }

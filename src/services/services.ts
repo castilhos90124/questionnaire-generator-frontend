@@ -178,15 +178,11 @@ export const updateAnswers = async (
     }
 };
 
-export const createStudent = async (
-    firstName: string,
-    lastName: string,
-    email: string
-) => {
+export const createStudent = async (name: string, email: string) => {
     try {
         const payload = {
-            firstname: firstName,
-            lastname: lastName,
+            firstname: name,
+            lastname: '',
             email,
             username: '',
             moodle_id: null as number
@@ -199,15 +195,14 @@ export const createStudent = async (
 };
 
 export const createStudentUser = async (
-    firstName: string,
-    lastName: string,
+    name: string,
     email: string,
     studentId: string
 ) => {
     try {
         const default_username = email.substring(0, email.indexOf('@'));
         const payload = {
-            name: `${firstName} ${lastName}`,
+            name,
             email,
             username: default_username,
             password: default_username,
@@ -222,15 +217,13 @@ export const createStudentUser = async (
 };
 
 export const updateStudent = async (
-    firstName: string,
-    lastName: string,
+    name: string,
     email: string,
     studentId: string
 ) => {
     try {
         const payload = {
-            firstname: firstName,
-            lastname: lastName,
+            firstname: name,
             email,
             username: '',
             moodle_id: null as number
@@ -272,4 +265,60 @@ export const getCategoryIndexById = (id: string, categoryList: any) => {
     return categoryList.findIndex((item: any) => {
         return item.id === id;
     });
+};
+
+export const createSessions = async (
+    categoryId: string,
+    studentsIds: any,
+    numberOfQuestions: number
+) => {
+    try {
+        const payload = [];
+        const date = new Date();
+        const month = `0${date.getMonth() + 1}`.slice(-2);
+        const day = `0${date.getDate()}`.slice(-2);
+        for (const key in studentsIds) {
+            const student_id = studentsIds[key];
+            const session = {
+                category_id: categoryId,
+                student_id,
+                number_questions: numberOfQuestions,
+                status: 1,
+                current_answer_id: null as number,
+                time_started: `${date.getFullYear()}-${month}-${day} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`,
+                tqg_id: 1
+            };
+            payload.push(session);
+        }
+        return await axios.post('/sessions', payload);
+    } catch (error: any) {
+        throw getError(error);
+    }
+};
+
+export const updateSession = async (
+    id: string,
+    categoryId: string,
+    numberOfQuestions: number
+) => {
+    try {
+        const payload = {
+            category_id: categoryId,
+            number_questions: numberOfQuestions
+        };
+
+        return await axios.put(`/sessions/${id}`, payload);
+    } catch (error: any) {
+        throw getError(error);
+    }
+};
+
+export const getStudentNameById = (id: string, studentList: any) => {
+    let studentName = '';
+    studentList.filter((item: any) => {
+        if (item.id === id) {
+            studentName = item.firstname;
+        }
+    });
+    return studentName;
 };

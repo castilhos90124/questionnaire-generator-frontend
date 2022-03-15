@@ -12,6 +12,7 @@ import RecoverPassword from '@/modules/recover-password/recover-password.vue';
 import ManageCategory from '@/pages/main-menu/manage-category/manage-category.vue';
 import ManageQuestion from '@/pages/main-menu/manage-question/manage-question.vue';
 import ManageStudent from '@/pages/main-menu/manage-student/manage-student.vue';
+import ManageQuestionnaire from '@/pages/main-menu/manage-questionnaire/manage-questionnaire.vue';
 
 const routes: Array<RouteRecordRaw> = [
     {
@@ -63,9 +64,9 @@ const routes: Array<RouteRecordRaw> = [
                 }
             },
             {
-                path: '',
-                name: 'Questionário',
-                component: Dashboard,
+                path: 'manage-questionnaire',
+                name: 'Manage Questionnaire',
+                component: ManageQuestionnaire,
                 meta: {
                     requiresAuth: true
                 }

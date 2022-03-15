@@ -16,14 +16,10 @@ export default class MenuSidebar extends Vue {
 }
 
 export const MENU = [
-    {
-        name: 'labels.dashboard',
-        path: '/'
-    },
-    {
-        name: 'labels.questions',
-        path: '/manage-question'
-    },
+    // {
+    //     name: 'labels.dashboard',
+    //     path: '/'
+    // },
     {
         name: 'labels.categories',
         path: '/manage-category'
@@ -31,5 +27,13 @@ export const MENU = [
     {
         name: 'labels.students',
         path: '/manage-student'
+    },
+    {
+        name: 'labels.questions',
+        path: '/manage-question'
+    },
+    {
+        name: 'labels.questionnaires',
+        path: '/manage-questionnaire'
     }
 ];

@@ -30,8 +30,11 @@
 .create-item{
   width: 100%;
 }
-.action-column{
+.action-header{
   width: 107px;
+}
+.action-column{
+  display: flex;
 }
 .action-button{
   float: right;

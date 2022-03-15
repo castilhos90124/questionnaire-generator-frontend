@@ -21,13 +21,12 @@ export default class ManageStudent extends Vue {
     private modalActive = false;
     private modalDeleteActive = false;
     private toast = useToast();
-    private firstName: string = '';
-    private lastName: string = '';
     private email: string = '';
     private studentId: string = '';
     private isLoading: boolean = false;
     private isEditing: boolean = false;
     private deleteIndex: number;
+    private name: string = '';
 
     created() {
         this.updateStudentsList();
@@ -56,15 +55,26 @@ export default class ManageStudent extends Vue {
         }
     }
     private onSubmit() {
-        if (!this.firstName || !this.lastName || !this.email) {
+        if (!this.name || !this.email) {
             this.toast.error(this.$t('messages.fillAllRequiredFields'));
+            return;
+        }
+        if (this.name.trim().split(' ').length < 2) {
+            this.toast.error(this.$t('messages.fillValidName'));
             return;
         }
         if (!this.isValidEmail(this.email)) {
             this.toast.error(this.$t('messages.fillValidEmail'));
             return;
         }
+        for (const i in this.students) {
+            if (this.students[i].firstname === this.name) {
+                this.toast.error(this.$t('messages.nameAlreadyUsed'));
+                return;
+            }
+        }
         this.isLoading = true;
+        this.name = this.name.trim();
         if (this.isEditing) this.update();
         else this.create();
     }
@@ -86,28 +96,21 @@ export default class ManageStudent extends Vue {
     private setEditedRow(index: number) {
         const student = this.students[index];
         this.studentId = student.id;
-        this.firstName = student.firstname;
-        this.lastName = student.lastname;
+        this.name = student.firstname;
         this.email = student.email;
     }
     private cleanEditedRow() {
-        this.firstName = '';
-        this.lastName = '';
+        this.name = '';
         this.email = '';
         this.studentId = '';
         this.isEditing = false;
     }
     private create() {
-        createStudent(this.firstName, this.lastName, this.email)
+        createStudent(this.name, this.email)
             .then(
                 (response) => {
                     const studentId = response.data.id;
-                    createStudentUser(
-                        this.firstName,
-                        this.lastName,
-                        this.email,
-                        studentId
-                    ).then(
+                    createStudentUser(this.name, this.email, studentId).then(
                         () => {
                             this.toast.success(
                                 this.$t('messages.createItemSuccess')
@@ -130,7 +133,7 @@ export default class ManageStudent extends Vue {
             });
     }
     private update() {
-        updateStudent(this.firstName, this.lastName, this.email, this.studentId)
+        updateStudent(this.name, this.email, this.studentId)
             .then(
                 () => {
                     this.toast.success(this.$t('messages.editItemSuccess'));
