@@ -1,6 +1,6 @@
-import {IUser} from '@/interfaces/user';
 import {Options, Vue} from 'vue-class-component';
 import MenuItem from '@/components/menu-item/menu-item.vue';
+import {getRequest} from '@/services/services';
 
 @Options({
     name: 'app-menu-sidebar',
@@ -9,13 +9,23 @@ import MenuItem from '@/components/menu-item/menu-item.vue';
     }
 })
 export default class MenuSidebar extends Vue {
-    public menu = MENU;
-    get user(): IUser {
-        return this.$store.getters['auth/user'];
+    public menu = studentsMenu;
+    public created(): void {
+        getRequest('user').then(
+            (response: any) => {
+                const user = response.data;
+                if (!user.student_id) {
+                    this.menu = teachersMenu;
+                }
+            },
+            () => {
+                this.$store.dispatch('auth/logout');
+            }
+        );
     }
 }
 
-export const MENU = [
+export const teachersMenu = [
     // {
     //     name: 'labels.dashboard',
     //     path: '/'
@@ -35,5 +45,12 @@ export const MENU = [
     {
         name: 'labels.questionnaires',
         path: '/manage-questionnaire'
+    }
+];
+
+export const studentsMenu = [
+    {
+        name: 'labels.questionnaires',
+        path: '/questionnaire'
     }
 ];

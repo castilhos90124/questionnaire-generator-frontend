@@ -2,7 +2,7 @@ import {Options, Vue} from 'vue-class-component';
 import Header from './header/header.vue';
 import MenuSidebar from './menu-sidebar/menu-sidebar.vue';
 import Footer from './footer/footer.vue';
-import {getProfile} from '@/services/services';
+import {getRequest} from '@/services/services';
 
 @Options({
     components: {
@@ -23,12 +23,15 @@ export default class Main extends Vue {
         this.appElement = document.getElementById('app') as HTMLElement;
         this.appElement.classList.add('sidebar-mini');
         this.appElement.classList.add('layout-fixed');
-        try {
-            const user = getProfile();
-            this.$store.dispatch('auth/getUser', user);
-        } catch (error) {
-            this.$store.dispatch('auth/logout');
-        }
+        getRequest('user').then(
+            (response: any) => {
+                const user = response.data;
+                this.$store.dispatch('auth/getUser', user);
+            },
+            () => {
+                this.$store.dispatch('auth/logout');
+            }
+        );
     }
 
     public unmounted(): void {

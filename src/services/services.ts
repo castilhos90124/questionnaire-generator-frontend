@@ -34,18 +34,6 @@ export const registerByAuth = async (email: string, password: string) => {
     }
 };
 
-export const getProfile = () => {
-    try {
-        // TODO: verify if user is student or teacher
-        const user = {
-            username: 'Professor'
-        };
-        return user;
-    } catch (error: any) {
-        throw getError(error);
-    }
-};
-
 export const createCategory = async (
     name: string,
     description: string,

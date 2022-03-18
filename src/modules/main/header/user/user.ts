@@ -1,4 +1,3 @@
-import {IUser} from '@/interfaces/user';
 import {Options, Vue} from 'vue-class-component';
 import Dropdown from '@/components/dropdown/dropdown.vue';
 
@@ -9,7 +8,7 @@ import Dropdown from '@/components/dropdown/dropdown.vue';
     }
 })
 export default class User extends Vue {
-    get user(): IUser {
+    get user(): any {
         return this.$store.getters['auth/user'];
     }
 

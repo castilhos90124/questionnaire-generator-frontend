@@ -1,7 +1,6 @@
 import {IAuthState} from '@/interfaces/state';
-import {IUser} from '@/interfaces/user';
 
 export default {
-    user: (state: IAuthState): IUser => state.user,
+    user: (state: IAuthState): any => state.user,
     token: (state: IAuthState): string => state.token
 };
