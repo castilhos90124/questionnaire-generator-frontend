@@ -24,16 +24,6 @@ export const loginByAuth = async (email: string, password: string) => {
     }
 };
 
-export const registerByAuth = async (email: string, password: string) => {
-    try {
-        // TODO: implement register
-        const token = 'await registerByAuth(email, password)';
-        return token;
-    } catch (error: any) {
-        throw getError(error);
-    }
-};
-
 export const createCategory = async (
     name: string,
     description: string,
@@ -309,4 +299,12 @@ export const getStudentNameById = (id: string, studentList: any) => {
         }
     });
     return studentName;
+};
+
+export const getNextQuestion = async (sessionId: string) => {
+    try {
+        return await axios.get(`/sessions/${sessionId}/get_next_question`);
+    } catch (error: any) {
+        throw getError(error);
+    }
 };

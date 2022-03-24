@@ -68,7 +68,8 @@
         "created": "Criado",
         "started": "Iniciado",
         "answered": "Em progresso",
-        "finished": "Finalizado"
+        "finished": "Finalizado",
+        "answer": "Responder"
     },
     "messages": {
         "retrieveNewPassword": "You forgot your password? Here you can easily retrieve a new password.",
@@ -85,7 +86,9 @@
         "fillValidEmail": "Preencha um email válido",
         "fillValidName": "Preencha nome e sobrenome",
         "nameAlreadyUsed": "Aluno com este nome já foi cadastrado",
-        "studentAlreadyHasQuestionnaire": "Aluno já possui questionário cadastrado"
+        "studentAlreadyHasQuestionnaire": "Aluno já possui questionário cadastrado",
+        "noQuestionnaire": "Ainda não foi criado um questionário para você.",
+        "followQuestion": "Responda a seguinte questão:"
     },
     "buttons": {
         "requestNewPassword": "Request new password"

@@ -3,7 +3,6 @@ import store from '@/store/index';
 
 import Main from '@/modules/main/main.vue';
 import Login from '@/modules/login/login.vue';
-import Register from '@/modules/register/register.vue';
 
 import Dashboard from '@/pages/dashboard/dashboard.vue';
 import Profile from '@/pages/profile/profile.vue';
@@ -13,6 +12,7 @@ import ManageCategory from '@/pages/main-menu/manage-category/manage-category.vu
 import ManageQuestion from '@/pages/main-menu/manage-question/manage-question.vue';
 import ManageStudent from '@/pages/main-menu/manage-student/manage-student.vue';
 import ManageQuestionnaire from '@/pages/main-menu/manage-questionnaire/manage-questionnaire.vue';
+import Questionnaire from '@/pages/main-menu/questionnaire/questionnaire.vue';
 
 const routes: Array<RouteRecordRaw> = [
     {
@@ -70,6 +70,14 @@ const routes: Array<RouteRecordRaw> = [
                 meta: {
                     requiresAuth: true
                 }
+            },
+            {
+                path: 'questionnaire',
+                name: 'Questionnaire',
+                component: Questionnaire,
+                meta: {
+                    requiresAuth: true
+                }
             }
         ]
     },
@@ -77,14 +85,6 @@ const routes: Array<RouteRecordRaw> = [
         path: '/login',
         name: 'Login',
         component: Login,
-        meta: {
-            requiresUnauth: true
-        }
-    },
-    {
-        path: '/register',
-        name: 'Register',
-        component: Register,
         meta: {
             requiresUnauth: true
         }

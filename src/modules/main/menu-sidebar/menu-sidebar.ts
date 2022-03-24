@@ -26,10 +26,6 @@ export default class MenuSidebar extends Vue {
 }
 
 export const teachersMenu = [
-    // {
-    //     name: 'labels.dashboard',
-    //     path: '/'
-    // },
     {
         name: 'labels.categories',
         path: '/manage-category'
