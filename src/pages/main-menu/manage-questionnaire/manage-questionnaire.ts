@@ -5,7 +5,7 @@ import {
     deleteRequest,
     getCategoryNameById,
     getCategoryIndexById,
-    getStudentNameById,
+    getStudentEmailById,
     updateSession
 } from '@/services/services';
 import {useToast} from 'vue-toastification';
@@ -33,7 +33,7 @@ export default class ManageQuestionnaire extends Vue {
     private selectedCategoryIndex: string;
     private selectedStudents: any = [];
     private questionsQuantity: number = initialQuestionsQuantity;
-    private studentsNames: any = [];
+    private studentsOptions: any = [];
     private sessionId: string;
     public $refs: any;
 
@@ -76,7 +76,7 @@ export default class ManageQuestionnaire extends Vue {
             (response: any) => {
                 this.students = response.data.data;
                 for (const i in this.students) {
-                    this.studentsNames[i] = this.students[i].firstname;
+                    this.studentsOptions[i] = this.students[i].email;
                 }
             },
             () => {
@@ -103,19 +103,6 @@ export default class ManageQuestionnaire extends Vue {
             this.toast.error(this.$t('messages.fillAllRequiredFields'));
             return;
         }
-        for (const i in this.sessions) {
-            const session = this.sessions[i];
-            for (const j in this.selectedStudents)
-                if (
-                    this.getStudentNameById(session.student_id) ===
-                    this.selectedStudents[j]
-                ) {
-                    this.toast.error(
-                        this.$t('messages.studentAlreadyHasQuestionnaire')
-                    );
-                    return;
-                }
-        }
         this.isLoading = true;
         if (this.isEditing) this.update();
         else this.create();
@@ -130,7 +117,9 @@ export default class ManageQuestionnaire extends Vue {
             session.category_id,
             this.categories
         );
-        this.selectedStudents.push(this.getStudentNameById(session.student_id));
+        this.selectedStudents.push(
+            this.getStudentEmailById(session.student_id)
+        );
         this.questionsQuantity = session.number_questions;
         this.sessionId = session.id;
     }
@@ -142,13 +131,13 @@ export default class ManageQuestionnaire extends Vue {
         this.isEditing = false;
     }
 
-    private getSelectedStudentsIds(selectedStudentsNames: any, students: any) {
+    private getSelectedStudentsIds(selectedStudentsEmails: any, students: any) {
         const studentsIds = [];
-        for (const i in selectedStudentsNames) {
-            const name = selectedStudentsNames[i];
+        for (const i in selectedStudentsEmails) {
+            const email = selectedStudentsEmails[i];
             for (const j in students) {
                 const student = students[j];
-                if (student.firstname === name) {
+                if (student.email === email) {
                     studentsIds.push(student.id);
                 }
             }
@@ -216,7 +205,7 @@ export default class ManageQuestionnaire extends Vue {
         return getCategoryNameById(id, this.categories);
     }
 
-    private getStudentNameById(id: string): string {
-        return getStudentNameById(id, this.students);
+    private getStudentEmailById(id: string): string {
+        return getStudentEmailById(id, this.students);
     }
 }

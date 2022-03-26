@@ -156,11 +156,15 @@ export const updateAnswers = async (
     }
 };
 
-export const createStudent = async (name: string, email: string) => {
+export const createStudent = async (
+    firstName: string,
+    lastName: string,
+    email: string
+) => {
     try {
         const payload = {
-            firstname: name,
-            lastname: '',
+            firstname: firstName,
+            lastname: lastName,
             email,
             username: '',
             moodle_id: null as number
@@ -195,13 +199,15 @@ export const createStudentUser = async (
 };
 
 export const updateStudent = async (
-    name: string,
+    firstName: string,
+    lastName: string,
     email: string,
     studentId: string
 ) => {
     try {
         const payload = {
-            firstname: name,
+            firstname: firstName,
+            lastname: lastName,
             email,
             username: '',
             moodle_id: null as number
@@ -316,14 +322,14 @@ export const updateSessionByStudent = async (
     }
 };
 
-export const getStudentNameById = (id: string, studentList: any) => {
-    let studentName = '';
+export const getStudentEmailById = (id: string, studentList: any) => {
+    let studentEmail = '';
     studentList.filter((item: any) => {
         if (item.id === id) {
-            studentName = item.firstname;
+            studentEmail = item.email;
         }
     });
-    return studentName;
+    return studentEmail;
 };
 
 export const getNextQuestion = async (sessionId: string) => {

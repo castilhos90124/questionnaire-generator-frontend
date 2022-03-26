@@ -27,7 +27,7 @@
       </thead>
       <tbody>
         <tr v-for="(session, index) in sessions">
-          <td>{{getStudentNameById(session.student_id)}}</td>
+          <td>{{getStudentEmailById(session.student_id)}}</td>
           <td>{{getCategoryNameById(session.category_id)}}</td>
           <td>{{session.number_questions}}</td>
 
@@ -83,7 +83,7 @@
                     placeholder="Selecione os alunos que devem participar deste questionário"
                     :close-on-select="false"
                     :disabled="isEditing"
-                    :options="studentsNames"
+                    :options="studentsOptions"
                   />
                 </div>
                 <div class="col-sm-3">
@@ -139,7 +139,7 @@
           <div class="container-fluid">
             <div class="row mb-2">
               <div class="col-sm-6">
-                <h1>{{ $t("labels.delete") }} {{ $t("labels.category") }}</h1>
+                <h1>{{ $t("labels.delete") }} {{ $t("labels.questionnaire") }}</h1>
               </div>
             </div>
           </div>
