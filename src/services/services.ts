@@ -257,6 +257,14 @@ export const createSessions = async (
         const day = `0${date.getDate()}`.slice(-2);
         for (const key in studentsIds) {
             const student_id = studentsIds[key];
+            getRequest(`students/${student_id}`).then((response: any) => {
+                const student = response.data.data;
+                createStudentUser(
+                    `${student.firstname} ${student.lastname}`,
+                    student.email,
+                    student_id
+                );
+            });
             const session = {
                 category_id: categoryId,
                 student_id,
@@ -283,6 +291,23 @@ export const updateSession = async (
         const payload = {
             category_id: categoryId,
             number_questions: numberOfQuestions
+        };
+
+        return await axios.put(`/sessions/${id}`, payload);
+    } catch (error: any) {
+        throw getError(error);
+    }
+};
+
+export const updateSessionByStudent = async (
+    id: string,
+    currentAnswerId: string,
+    status: number
+) => {
+    try {
+        const payload = {
+            current_answer_id: currentAnswerId,
+            status
         };
 
         return await axios.put(`/sessions/${id}`, payload);
