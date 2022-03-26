@@ -57,11 +57,7 @@ const routes: Array<RouteRecordRaw> = [
             },
             {
                 path: '',
-                name: 'Dashboard',
-                component: Dashboard,
-                meta: {
-                    requiresAuth: true
-                }
+                redirect: '/questionnaire'
             },
             {
                 path: 'manage-questionnaire',

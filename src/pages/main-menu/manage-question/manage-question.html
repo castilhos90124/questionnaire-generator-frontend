@@ -86,10 +86,7 @@
                 <label>{{$t("labels.answersQuantity")}}*</label>
                 <div class="col-sm-6">
                   <select class="custom-select" @change="onChangeAnswersQuantity()" v-model="selectedAnswersQuantity" :disabled="isEditing">
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
+                    <option v-for="i in maxAnswersQuantity" :value="i+1">{{i+1}}</option>
                   </select>
                 </div>
               </div>

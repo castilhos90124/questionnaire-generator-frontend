@@ -13,6 +13,7 @@ import {useToast} from 'vue-toastification';
 import Button from '@/components/button/button.vue';
 
 const initalAnswersQuantity = 2;
+const maxAnswersQuantity = 6;
 
 @Options({
     components: {
@@ -40,6 +41,7 @@ export default class ManageQuestion extends Vue {
     private answersText: any = {1: '', 2: '', 3: '', 4: '', 5: ''};
     private deleteIndex: number;
     private questionTextMaxChars = 350;
+    private maxAnswersQuantity: number = maxAnswersQuantity;
 
     created() {
         this.updateCategoriesList();
