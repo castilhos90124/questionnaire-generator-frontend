@@ -30,11 +30,11 @@
           <td>{{category.name}}</td>
           <td>{{category.info}}</td>
           <td>{{getCategoryNameById(category.category_id)}}</td>
-          <td class="action-column">
-            <a href="#" class="btn" @click="onOpenModal(index)">
+          <td>
+            <a href="#" class="btn col-sm-6" @click="onOpenModal(index)">
               <i class="fas fa-pen"></i>
             </a>
-            <a href="#" class="btn action-button" @click="toggleDeleteModal(index)">
+            <a href="#" class="btn action-button col-sm-6" @click="toggleDeleteModal(index)">
               <i class="fas fa-trash"></i>
             </a>
           </td>

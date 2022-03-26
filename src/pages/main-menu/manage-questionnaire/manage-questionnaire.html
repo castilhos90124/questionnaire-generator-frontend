@@ -36,11 +36,11 @@
           <td v-if="session.status == 3">{{$t("labels.answered")}}</td>
           <td v-if="session.status == 4">{{$t("labels.finished")}}</td>
 
-          <td class="action-column">
-            <button class="btn" :disabled="session.status != 1" @click="onOpenModal(index)">
+          <td>
+            <button class="btn col-sm-6" :disabled="session.status != 1" @click="onOpenModal(index)">
               <i class="fas fa-pen"></i>
             </button>
-            <a href="#" class="btn action-button" @click="toggleDeleteModal(index)">
+            <a href="#" class="btn action-button col-sm-6" @click="toggleDeleteModal(index)">
               <i class="fas fa-trash"></i>
             </a>
           </td>
