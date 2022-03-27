@@ -34,7 +34,7 @@ export default class ManageStudent extends Vue {
     }
     data() {
         return {
-            columns: ['Nome', 'Email', 'Habilidade', 'Notas'],
+            columns: ['Nome', 'Email', 'Habilidade'],
             students: this.students
         };
     }
