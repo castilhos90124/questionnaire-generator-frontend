@@ -17,29 +17,14 @@
                 <span>{{user && user.email}}</span>
             </p>
         </li>
-        <!-- Menu Body -->
-        <li class="user-body">
-            <div class="row">
-                <div class="col-4 text-center">
-                    <a href="#">{{ $t("labels.followers") }}</a>
-                </div>
-                <div class="col-4 text-center">
-                    <a href="#">{{ $t("labels.sales") }}</a>
-                </div>
-                <div class="col-4 text-center">
-                    <a href="#">{{ $t("labels.friends") }}</a>
-                </div>
-            </div>
-            <!-- /.row -->
-        </li>
         <!-- Menu Footer-->
         <li class="user-footer">
             <router-link
-                to="/profile"
+                to="/change-password"
                 class="btn btn-default btn-flat"
                 @click="isDropdownOpened = false;"
             >
-                {{ $t("labels.profile") }}
+                {{ $t("labels.changePassword") }}
             </router-link>
             <button
                 @click="logout"

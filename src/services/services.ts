@@ -339,3 +339,19 @@ export const getNextQuestion = async (sessionId: string) => {
         throw getError(error);
     }
 };
+
+export const changePassword = async (
+    password: string,
+    passwordConfirmation: string
+) => {
+    try {
+        const payload = {
+            new_password: password,
+            new_password_confirmation: passwordConfirmation
+        };
+
+        return await axios.post('/password', payload);
+    } catch (error: any) {
+        throw getError(error);
+    }
+};

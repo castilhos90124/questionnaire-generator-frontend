@@ -69,7 +69,9 @@
         "started": "Iniciado",
         "answered": "Em progresso",
         "finished": "Finalizado",
-        "answer": "Responder"
+        "answer": "Responder",
+        "changePassword": "Alterar Senha",
+        "change": "Alterar"
     },
     "messages": {
         "retrieveNewPassword": "You forgot your password? Here you can easily retrieve a new password.",
@@ -88,7 +90,9 @@
         "nameAlreadyUsed": "Aluno com este nome já foi cadastrado",
         "studentAlreadyHasQuestionnaire": "Aluno já possui questionário cadastrado",
         "noQuestionnaire": "Ainda não foi criado um questionário para você.",
-        "followQuestion": "Responda a seguinte questão:"
+        "followQuestion": "Responda a seguinte questão:",
+        "passwordsMustMatch": "As senhas devem ser exatamente iguais.",
+        "passwordChangedSuccessfully": "Senha alterada com sucesso."
     },
     "buttons": {
         "requestNewPassword": "Request new password"

@@ -4,10 +4,8 @@ import store from '@/store/index';
 import Main from '@/modules/main/main.vue';
 import Login from '@/modules/login/login.vue';
 
-import Dashboard from '@/pages/dashboard/dashboard.vue';
-import Profile from '@/pages/profile/profile.vue';
 import ForgotPassword from '@/modules/forgot-password/forgot-password.vue';
-import RecoverPassword from '@/modules/recover-password/recover-password.vue';
+import ChangePassword from '@/pages/main-menu/change-password/change-password.vue';
 import ManageCategory from '@/pages/main-menu/manage-category/manage-category.vue';
 import ManageQuestion from '@/pages/main-menu/manage-question/manage-question.vue';
 import ManageStudent from '@/pages/main-menu/manage-student/manage-student.vue';
@@ -23,14 +21,6 @@ const routes: Array<RouteRecordRaw> = [
             requiresAuth: true
         },
         children: [
-            {
-                path: 'profile',
-                name: 'Profile',
-                component: Profile,
-                meta: {
-                    requiresAuth: true
-                }
-            },
             {
                 path: 'manage-question',
                 name: 'Manage Question',
@@ -74,6 +64,14 @@ const routes: Array<RouteRecordRaw> = [
                 meta: {
                     requiresAuth: true
                 }
+            },
+            {
+                path: '/change-password',
+                name: 'ChangePassword',
+                component: ChangePassword,
+                meta: {
+                    requiresAuth: true
+                }
             }
         ]
     },
@@ -89,14 +87,6 @@ const routes: Array<RouteRecordRaw> = [
         path: '/forgot-password',
         name: 'ForgotPassword',
         component: ForgotPassword,
-        meta: {
-            requiresUnauth: true
-        }
-    },
-    {
-        path: '/recover-password',
-        name: 'RecoverPassword',
-        component: RecoverPassword,
         meta: {
             requiresUnauth: true
         }
