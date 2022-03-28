@@ -2,37 +2,7 @@
     "labels": {
         "rememberMe": "Lembrar",
         "signIn": "Login",
-        "forgotPassword": "I forgot my password",
-        "registerMembership": "Register a new membership",
-        "login": "Login",
-        "loading": "Loading...",
-        "allRightReserved": "All rights reserved",
-        "version": "Version",
-        "seeAllNotification": "See All Notifications",
-        "notifications": "Notifications",
-        "newMessages": "new messages",
-        "mins": "mins",
-        "hours": "hours",
-        "days": "days",
-        "friendRequests": "friend requests",
-        "newReports": "new reports",
-        "profile": "Profile",
-        "followers": "Followers",
-        "sales": "Sales",
-        "friends": "Friends",
         "signOut": "Sair",
-        "memberSince": "Member since",
-        "home": "Home",
-        "contact": "Contact",
-        "dashboard": "Dashboard",
-        "mainMenu": "Main menu",
-        "subMenu": "Sub menu",
-        "privacyPolicy": "Privacy Policy",
-        "iAgree": "I agree to the",
-        "terms": "terms",
-        "register": "Register",
-        "alreadyHaveMembership": "I already have a membership",
-        "userProfile": "User Profile",
         "questionnaires": "Questionários",
         "questionnaire": "Questionário",
         "create": "Criar",
@@ -74,8 +44,6 @@
         "change": "Alterar"
     },
     "messages": {
-        "retrieveNewPassword": "You forgot your password? Here you can easily retrieve a new password.",
-        "recoverYourPasswordNow": "You are only one step a way from your new password, recover your password now.",
         "loginError": "Email ou senha incorretos.",
         "editItemSuccess": "Item editado com sucesso",
         "createItemSuccess": "Item criado com sucesso",
@@ -93,8 +61,6 @@
         "followQuestion": "Responda a seguinte questão:",
         "passwordsMustMatch": "As senhas devem ser exatamente iguais.",
         "passwordChangedSuccessfully": "Senha alterada com sucesso."
-    },
-    "buttons": {
-        "requestNewPassword": "Request new password"
     }
+
 }

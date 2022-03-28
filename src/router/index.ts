@@ -4,13 +4,12 @@ import store from '@/store/index';
 import Main from '@/modules/main/main.vue';
 import Login from '@/modules/login/login.vue';
 
-import ForgotPassword from '@/modules/forgot-password/forgot-password.vue';
-import ChangePassword from '@/pages/main-menu/change-password/change-password.vue';
-import ManageCategory from '@/pages/main-menu/manage-category/manage-category.vue';
-import ManageQuestion from '@/pages/main-menu/manage-question/manage-question.vue';
-import ManageStudent from '@/pages/main-menu/manage-student/manage-student.vue';
-import ManageQuestionnaire from '@/pages/main-menu/manage-questionnaire/manage-questionnaire.vue';
-import Questionnaire from '@/pages/main-menu/questionnaire/questionnaire.vue';
+import ChangePassword from '@/pages/change-password/change-password.vue';
+import ManageCategory from '@/pages/manage-category/manage-category.vue';
+import ManageQuestion from '@/pages/manage-question/manage-question.vue';
+import ManageStudent from '@/pages/manage-student/manage-student.vue';
+import ManageQuestionnaire from '@/pages/manage-questionnaire/manage-questionnaire.vue';
+import Questionnaire from '@/pages/questionnaire/questionnaire.vue';
 
 const routes: Array<RouteRecordRaw> = [
     {
@@ -79,14 +78,6 @@ const routes: Array<RouteRecordRaw> = [
         path: '/login',
         name: 'Login',
         component: Login,
-        meta: {
-            requiresUnauth: true
-        }
-    },
-    {
-        path: '/forgot-password',
-        name: 'ForgotPassword',
-        component: ForgotPassword,
         meta: {
             requiresUnauth: true
         }
