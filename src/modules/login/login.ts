@@ -1,6 +1,5 @@
 import {Options, Vue} from 'vue-class-component';
 import {loginByAuth} from '@/services/services';
-import Checkbox from '@/components/checkbox/checkbox.vue';
 import Input from '@/components/input/input.vue';
 import Button from '@/components/button/button.vue';
 import {useToast} from 'vue-toastification';
@@ -8,7 +7,6 @@ import axios from 'axios';
 
 @Options({
     components: {
-        'app-checkbox': Checkbox,
         'app-input': Input,
         'app-button': Button
     }
@@ -17,7 +15,6 @@ export default class Login extends Vue {
     private appElement: HTMLElement | null = null;
     public email: string = '';
     public password: string = '';
-    public rememberMe: boolean = false;
     public isAuthLoading: boolean = false;
     private toast = useToast();
 
@@ -34,8 +31,7 @@ export default class Login extends Vue {
         try {
             this.isAuthLoading = true;
             const token = await loginByAuth(this.email, this.password);
-            if (this.rememberMe)
-                localStorage.setItem('token', token.data.token);
+            localStorage.setItem('token', token.data.token);
             axios.defaults.headers.common[
                 'Authorization'
             ] = `Bearer ${token.data.token}`;
