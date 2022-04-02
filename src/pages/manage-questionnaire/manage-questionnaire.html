@@ -32,8 +32,7 @@
           <td>{{session.number_questions}}</td>
 
           <td v-if="session.status == 1">{{$t("labels.created")}}</td>
-          <td v-if="session.status == 2">{{$t("labels.started")}}</td>
-          <td v-if="session.status == 3">{{$t("labels.answered")}}</td>
+          <td v-if="session.status == 2 || session.status == 3">{{$t("labels.answered")}}</td>
           <td v-if="session.status == 4">{{$t("labels.finished")}}</td>
 
           <td>

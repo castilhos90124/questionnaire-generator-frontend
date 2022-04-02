@@ -34,14 +34,17 @@
         "subCategory": "Subcategoria da",
         "none": "Nenhuma",
         "selectAll": "Selecionar Todos",
-        "numberOfQuestions": "Número de Questões",
+        "numberOfQuestions": "Mínimo de Questões",
         "created": "Criado",
         "started": "Iniciado",
         "answered": "Em progresso",
         "finished": "Finalizado",
         "answer": "Responder",
         "changePassword": "Alterar Senha",
-        "change": "Alterar"
+        "change": "Alterar",
+        "tri": "TRI",
+        "startQuestionnaire": "Iniciar Questionário",
+        "continueQuestionnaire": "Continuar Questionário"
     },
     "messages": {
         "loginError": "Email ou senha incorretos.",
@@ -60,7 +63,10 @@
         "noQuestionnaire": "Ainda não foi criado um questionário para você.",
         "followQuestion": "Responda a seguinte questão:",
         "passwordsMustMatch": "As senhas devem ser exatamente iguais.",
-        "passwordChangedSuccessfully": "Senha alterada com sucesso."
+        "passwordChangedSuccessfully": "Senha alterada com sucesso.",
+        "startQuestionnaire": "Você possui um questionário disponível, pressione para iniciá-lo.",
+        "continueQuestionnaire": "Você possui um questionário em andamento, pressione para prossegui-lo",
+        "finishedQuestionnaire": "Questionário finalizado!"
     }
 
 }

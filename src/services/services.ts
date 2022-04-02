@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+const ANSWERED_STATUS = 3;
+
 const getError = (error: any) => {
     const message =
         (error &&
@@ -307,15 +309,13 @@ export const updateSession = async (
 
 export const updateSessionByStudent = async (
     id: string,
-    currentAnswerId: string,
-    status: number
+    currentAnswerId: string
 ) => {
     try {
-        const payload = {
+        const payload: any = {
             current_answer_id: currentAnswerId,
-            status
+            status: ANSWERED_STATUS
         };
-
         return await axios.put(`/sessions/${id}`, payload);
     } catch (error: any) {
         throw getError(error);
@@ -335,6 +335,14 @@ export const getStudentEmailById = (id: string, studentList: any) => {
 export const getNextQuestion = async (sessionId: string) => {
     try {
         return await axios.get(`/sessions/${sessionId}/get_next_question`);
+    } catch (error: any) {
+        throw getError(error);
+    }
+};
+
+export const getCurrentQuestion = async (sessionId: string) => {
+    try {
+        return await axios.get(`/sessions/${sessionId}/get_current_question`);
     } catch (error: any) {
         throw getError(error);
     }

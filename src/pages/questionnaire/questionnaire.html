@@ -3,8 +3,25 @@
   <div class="container-fluid">
     <div class="row mb-2">
       <div class="col-sm-12">
-        <h1 v-if="hasSession">{{$t("messages.followQuestion")}}</h1>
-        <h1 v-else>{{$t("messages.noQuestionnaire")}}</h1>
+        <div v-if="getQuestionnaireStatus() === 'created'">
+          <h1>{{$t("messages.startQuestionnaire")}}</h1>
+          <br>
+          <br>
+          <app-button class="btn-primary" style="margin: auto" @click="onStartQuestionnaire()">
+            <span>{{$t("labels.startQuestionnaire")}}</span>
+          </app-button>
+        </div>
+        <div v-if="getQuestionnaireStatus() === 'inProgress'">
+          <h1>{{$t("messages.continueQuestionnaire")}}</h1>
+          <br>
+          <br>
+          <app-button class="btn-primary" style="margin: auto" @click="onStartQuestionnaire()">
+            <span>{{$t("labels.continueQuestionnaire")}}</span>
+          </app-button>
+        </div>
+        <h1 v-if="getQuestionnaireStatus() === 'noQuestionnaire'">{{$t("messages.noQuestionnaire")}}</h1>
+        <h1 v-if="getQuestionnaireStatus() === 'finished'">{{$t("messages.finishedQuestionnaire")}}</h1>
+        <h1 v-if="getQuestionnaireStatus() === 'showQuestion'">{{$t("messages.followQuestion")}}</h1>
 
       </div>
     </div>
@@ -12,7 +29,7 @@
   <!-- /.container-fluid -->
 </section>
 
-<div class="card" v-if="hasSession">
+<div class="card" v-if="getQuestionnaireStatus() === 'showQuestion'">
   <!-- /.card-header -->
   <div class="card-body">
       <div class="row">
@@ -20,9 +37,10 @@
           <!-- radio -->
           <div class="form-group">
             <h5 class="mt-4 mb-2">{{question.questiontext}}</h5>
+            <br>
             <div class="custom-control custom-radio answer" v-for="(answer, index) in question.answers">
-              <input class="custom-control-input" type="radio" :id="index" :value="index" name="radio" v-model="selectedAnswer">
-              <label :for="index" class="custom-control-label">{{answer.text}}</label>
+              <input class="custom-control-input pointer" type="radio" :id="index" :value="index" name="radio" v-model="selectedAnswer">
+              <label :for="index" class="custom-control-label pointer">{{answer.text}}</label>
             </div>
             <div class="form-group row action-button">
               <app-button class="btn-primary" @click="onAnswer()" :loading="isLoading">

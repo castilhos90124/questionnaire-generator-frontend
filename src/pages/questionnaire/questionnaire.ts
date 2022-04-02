@@ -2,12 +2,13 @@ import {Options, Vue} from 'vue-class-component';
 import {
     getRequest,
     getNextQuestion,
-    updateSessionByStudent
+    updateSessionByStudent,
+    getCurrentQuestion
 } from '@/services/services';
 import {useToast} from 'vue-toastification';
 import Button from '@/components/button/button.vue';
 
-const ANSWERED_STATUS = 3;
+const FINISHED_STATUS = 4;
 
 @Options({
     components: {
@@ -18,10 +19,12 @@ export default class Questionnaire extends Vue {
     private sessions: any;
     private toast = useToast();
     private question: any;
-    private hasSession: boolean = false;
     private isLoading: boolean = false;
+    private hasSession: boolean = false;
     private selectedAnswer: number;
     private currentSession: any;
+    private startedQuestionnaire: boolean = false;
+    private finishedQuestionnaire: boolean = false;
 
     created() {
         getRequest('user').then(
@@ -29,9 +32,6 @@ export default class Questionnaire extends Vue {
                 const user = response.data;
                 if (!user.student_id) {
                     this.$router.push('/manage-questionnaire');
-                }
-                if (!this.question) {
-                    this.question = this.getMockQuestion();
                 }
                 this.updateSessionsList();
             },
@@ -49,6 +49,7 @@ export default class Questionnaire extends Vue {
     private updateSessionsList() {
         getRequest('sessions').then(
             (response: any) => {
+                this.finishedQuestionnaire = false;
                 this.sessions = response.data.data;
                 // TODO: Verificar qual session deve ser usada, pois pode ter mais de uma ativa para o usuario
                 // e se o usuario tem sessions, pois pode nao ter nenhuma
@@ -58,16 +59,13 @@ export default class Questionnaire extends Vue {
 
                 this.currentSession = this.sessions[0];
                 this.hasSession = true;
-
-                // getRequest(`questions/${session.current_question}`).then(
-                //     (response: any) => {
-                //         this.question = response.data.data;
-                //         console.log('question', this.question);
-                //     },
-                //     () => {
-                //         this.toast.error(this.$t('messages.getFailed'));
-                //     }
-                // );
+                if (this.currentSession.status === FINISHED_STATUS) {
+                    this.finishedQuestionnaire = true;
+                    return;
+                }
+                if (!this.question && this.startedQuestionnaire) {
+                    this.getQuestion();
+                }
             },
             () => {
                 this.toast.error(this.$t('messages.getFailed'));
@@ -75,14 +73,22 @@ export default class Questionnaire extends Vue {
         );
     }
 
+    private isQuestionnaireInProgress(sessionStatus: number): boolean {
+        switch (sessionStatus) {
+            case 2:
+            case 3:
+                return true;
+            case 1:
+            case 4:
+            default:
+                return false;
+        }
+    }
+
     private onAnswer() {
         this.isLoading = true;
         const answer = this.question.answers[this.selectedAnswer];
-        updateSessionByStudent(
-            this.currentSession.id,
-            answer.id,
-            ANSWERED_STATUS
-        ).then(
+        updateSessionByStudent(this.currentSession.id, answer.id).then(
             (response: any) => {
                 this.question = response.data.data;
                 this.getNextQuestion();
@@ -93,80 +99,48 @@ export default class Questionnaire extends Vue {
                 this.toast.error(this.$t('messages.getFailed'));
             }
         );
-        this.isLoading = false;
     }
 
     private getNextQuestion() {
-        getNextQuestion(this.currentSession.id).then(
+        getNextQuestion(this.currentSession.id)
+            .then(
+                (response: any) => {
+                    this.question = response.data.data;
+                },
+                () => {
+                    this.toast.error(this.$t('messages.getFailed'));
+                }
+            )
+            .finally(() => {
+                this.isLoading = false;
+            });
+    }
+
+    private getQuestion() {
+        getCurrentQuestion(this.currentSession.id).then(
             (response: any) => {
                 this.question = response.data.data;
-                console.log('question', this.question);
             },
             () => {
-                this.toast.error(this.$t('messages.getFailed'));
+                this.getNextQuestion();
             }
         );
     }
 
-    private getMockQuestion(): any {
-        return {
-            id: '95cfc3b1-cd3c-46c3-a3f0-fd30ff089155',
-            moodle_id: null,
-            category_id: '95cfc038-e92a-481c-b4f0-a4421130a086',
-            type: 'multiplechoice',
-            name: '1111',
-            questiontext:
-                "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged",
-            questiontext_format: 'html',
-            generalfeedback: '',
-            generalfeedback_format: '',
-            defaultgrade: 1,
-            penalty: 0.33,
-            hidden: 0,
-            idnumber: null,
-            single: 0,
-            shuffleanswers: 0,
-            answernumbering: '',
-            showstandardinstruction: 0,
-            correctfeedback: 'Your answer is correct.',
-            correctfeedback_format: 'html',
-            partiallycorrectfeedback: 'Your answer is partially correct.',
-            partiallycorrectfeedback_format: 'html',
-            incorrectfeedback: 'Your answer is incorrect.',
-            incorrectfeedback_format: 'html',
-            ability: 0,
-            discrimination: 0,
-            guess: 0,
-            answers: [
-                {
-                    id: '95cfc3b2-042f-4cc4-a2d1-c664b245d812',
-                    moodle_id: null,
-                    question_id: '95cfc3b1-cd3c-46c3-a3f0-fd30ff089155',
-                    fraction: 1,
-                    format: 'html',
-                    text: ' It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
-                    is_correct: 0,
-                    feedback: '',
-                    feedback_format: 'html',
-                    created_at: '2022-03-13T18:22:19.000000Z',
-                    updated_at: '2022-03-13T18:22:19.000000Z'
-                },
-                {
-                    id: '95cfc3b2-07e4-429d-9ec8-64f1e7660292',
-                    moodle_id: null,
-                    question_id: '95cfc3b1-cd3c-46c3-a3f0-fd30ff089155',
-                    fraction: 1,
-                    format: 'html',
-                    text: 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem',
-                    is_correct: 1,
-                    feedback: '',
-                    feedback_format: 'html',
-                    created_at: '2022-03-13T18:22:19.000000Z',
-                    updated_at: '2022-03-13T18:22:19.000000Z'
-                }
-            ],
-            created_at: '2022-03-13T18:22:19.000000Z',
-            updated_at: '2022-03-13T18:22:19.000000Z'
-        };
+    private onStartQuestionnaire() {
+        this.startedQuestionnaire = true;
+        this.updateSessionsList();
+    }
+
+    private getQuestionnaireStatus() {
+        if (this.finishedQuestionnaire) return 'finished';
+        if (!this.startedQuestionnaire && this.hasSession) {
+            if (this.isQuestionnaireInProgress(this.currentSession.status))
+                return 'inProgress';
+            else return 'created';
+        }
+        if (this.isLoading || (!!this.question && this.startedQuestionnaire))
+            return 'showQuestion';
+        if (!this.hasSession) return 'noQuestionnaire';
     }
 }
