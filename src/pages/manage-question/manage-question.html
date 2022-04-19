@@ -85,9 +85,9 @@
               <div class="form-group row">
                 <label>{{$t("labels.answersQuantity")}}*</label>
                 <div class="col-sm-6">
-                  <select class="custom-select" @change="onChangeAnswersQuantity()" v-model="selectedAnswersQuantity" :disabled="isEditing">
-                    <option v-for="i in maxAnswersQuantity" :value="i+1">{{i+1}}</option>
-                  </select>
+                  <div class="col-sm-6">
+                    <input type="number" class="form-control" @change="onChangeAnswersQuantity()" v-model="selectedAnswersQuantity" min="2" :disabled="isEditing"/>
+                  </div>
                 </div>
               </div>
               <template v-for="i in answersQuantity">
