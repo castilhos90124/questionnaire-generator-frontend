@@ -26,8 +26,8 @@
       <tbody>
         <tr v-for="(question, index) in questions">
           <td>{{question.name}}</td>
-          <td v-if="question.questiontext.length<questionTextMaxChars">{{question.questiontext}}</td>
-          <td v-else>{{question.questiontext.substring(0,questionTextMaxChars)+"..."}}</td>
+          <td v-if="question.questiontext.length<questionTextMaxChars" v-html="question.questiontext"></td>
+          <td v-else v-html="question.questiontext.substring(0,questionTextMaxChars)+'...'"></td>
 
           <td>{{getCategoryNameById(question.category_id)}}</td>
 
