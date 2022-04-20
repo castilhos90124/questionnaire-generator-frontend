@@ -10,6 +10,9 @@
 
 <div class="card">
   <div class="card-body">
+    <!-- <div class="overlay">
+      <i class="fas fa-2x fa-sync-alt"></i>
+    </div> -->
     <table class="table table-bordered table-striped">
       <thead>
         <tr>
@@ -86,7 +89,7 @@
                 <label>{{$t("labels.answersQuantity")}}*</label>
                 <div class="col-sm-6">
                   <div class="col-sm-6">
-                    <input type="number" class="form-control" @change="onChangeAnswersQuantity()" v-model="selectedAnswersQuantity" min="2" :disabled="isEditing"/>
+                    <input type="number" class="form-control" @change="onChangeAnswersQuantity()" v-model="selectedAnswersQuantity" min="2"/>
                   </div>
                 </div>
               </div>

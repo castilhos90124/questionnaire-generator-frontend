@@ -150,7 +150,12 @@ export const updateAnswers = async (
                     is_correct: correctAnswer == parseInt(key) ? 1 : 0,
                     text: answersText[key]
                 };
-                await axios.put(`/answers/${answersIds[answerIndex]}`, answer);
+                if (answersIds[answerIndex]) {
+                    await axios.put(`/answers/${answersIds[answerIndex]}`, answer);
+                }
+                else {
+                    createAnswers([answer.text], answer.is_correct, answer.question_id);
+                }
             }
         }
     } catch (error: any) {
