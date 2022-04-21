@@ -29,6 +29,7 @@ export default class ManageQuestion extends Vue {
     private name: string = '';
     private questionText: string = '';
     private isLoading: boolean = false;
+    private isLoadingQuestion: boolean = false;
     private categoryId: string;
     private questionId: string;
     private answersIds: string[] = [];
@@ -235,14 +236,19 @@ export default class ManageQuestion extends Vue {
     }
 
     private updateQuestionsList() {
-        getRequest('questions').then(
-            (response: any) => {
-                this.questions = response.data.data;
-            },
-            () => {
-                this.toast.error(this.$t('messages.getFailed'));
-            }
-        );
+        this.isLoadingQuestion = true;
+        getRequest('questions')
+            .then(
+                (response: any) => {
+                    this.questions = response.data.data;
+                },
+                () => {
+                    this.toast.error(this.$t('messages.getFailed'));
+                }
+            )
+            .finally(() => {
+                this.isLoadingQuestion = false;
+            });
     }
 
     private updateCategoriesList() {

@@ -27,6 +27,7 @@ export default class ManageCategory extends Vue {
     private isEditing: boolean = false;
     private deleteIndex: number;
     private categoryMotherIndex: string;
+    private isLoadingCategories: boolean = false;
 
     created() {
         this.updateCategoriesList();
@@ -38,14 +39,19 @@ export default class ManageCategory extends Vue {
         };
     }
     private updateCategoriesList() {
-        getRequest('categories').then(
-            (response: any) => {
-                this.categories = response.data.data;
-            },
-            () => {
-                this.toast.error(this.$t('messages.getFailed'));
-            }
-        );
+        this.isLoadingCategories = true;
+        getRequest('categories')
+            .then(
+                (response: any) => {
+                    this.categories = response.data.data;
+                },
+                () => {
+                    this.toast.error(this.$t('messages.getFailed'));
+                }
+            )
+            .finally(() => {
+                this.isLoadingCategories = false;
+            });
     }
     private onOpenModal(index: any) {
         this.toggleModal();

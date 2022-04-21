@@ -17,7 +17,7 @@ const initialQuestionsQuantity = 15;
 @Options({
     components: {
         'app-button': Button,
-        'Multiselect': Multiselect
+        Multiselect: Multiselect
     }
 })
 export default class ManageQuestionnaire extends Vue {
@@ -28,6 +28,7 @@ export default class ManageQuestionnaire extends Vue {
     private modalDeleteActive = false;
     private toast = useToast();
     private isLoading: boolean = false;
+    private isLoadingQuestionnaire: boolean = false;
     private isEditing: boolean = false;
     private deleteIndex: number;
     private selectedCategoryIndex: string;
@@ -61,14 +62,19 @@ export default class ManageQuestionnaire extends Vue {
     }
 
     private updateSessionsList() {
-        getRequest('sessions').then(
-            (response: any) => {
-                this.sessions = response.data.data;
-            },
-            () => {
-                this.toast.error(this.$t('messages.getFailed'));
-            }
-        );
+        this.isLoadingQuestionnaire = true;
+        getRequest('sessions')
+            .then(
+                (response: any) => {
+                    this.sessions = response.data.data;
+                },
+                () => {
+                    this.toast.error(this.$t('messages.getFailed'));
+                }
+            )
+            .finally(() => {
+                this.isLoadingQuestionnaire = false;
+            });
     }
 
     private updateStudentsList() {

@@ -12,7 +12,10 @@
 
 <div class="card">
   <div class="card-body">
-    <table class="table table-bordered table-striped">
+    <div v-if="isLoadingCategories" class="overlay">
+      <i class="fas fa-2x fa-sync-alt rotate"></i>
+    </div>
+    <table v-else class="table table-bordered table-striped">
       <thead>
         <tr>
           <th v-for="column in columns">

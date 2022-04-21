@@ -28,6 +28,7 @@ export default class ManageStudent extends Vue {
     private deleteIndex: number;
     private firstName: string = '';
     private lastName: string = '';
+    private isLoadingStudents: boolean = false;
 
     created() {
         this.updateStudentsList();
@@ -39,14 +40,19 @@ export default class ManageStudent extends Vue {
         };
     }
     private updateStudentsList() {
-        getRequest('students').then(
-            (response: any) => {
-                this.students = response.data.data;
-            },
-            () => {
-                this.toast.error(this.$t('messages.getFailed'));
-            }
-        );
+        this.isLoadingStudents = true;
+        getRequest('students')
+            .then(
+                (response: any) => {
+                    this.students = response.data.data;
+                },
+                () => {
+                    this.toast.error(this.$t('messages.getFailed'));
+                }
+            )
+            .finally(() => {
+                this.isLoadingStudents = false;
+            });
     }
     private onOpenModal(index: any) {
         this.toggleModal();
