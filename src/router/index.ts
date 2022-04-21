@@ -3,6 +3,7 @@ import store from '@/store/index';
 
 import Main from '@/modules/main/main.vue';
 import Login from '@/modules/login/login.vue';
+import Register from '@/modules/register/register.vue';
 
 import ChangePassword from '@/pages/change-password/change-password.vue';
 import ManageCategory from '@/pages/manage-category/manage-category.vue';
@@ -78,6 +79,14 @@ const routes: Array<RouteRecordRaw> = [
         path: '/login',
         name: 'Login',
         component: Login,
+        meta: {
+            requiresUnauth: true
+        }
+    },
+    {
+        path: '/register',
+        name: 'Register',
+        component: Register,
         meta: {
             requiresUnauth: true
         }

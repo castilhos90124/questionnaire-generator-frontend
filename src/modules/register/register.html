@@ -1,11 +1,10 @@
 <div class="login-box">
-    <!-- /.login-logo -->
     <div class="card card-outline card-primary">
         <div class="card-header text-center">
-            <router-link to="/" class="h1">{{$t("labels.questionnaires")}} {{ $t("labels.tri") }}</router-link>
+            <router-link to="/register" class="h1">{{$t("labels.register")}} </router-link>
         </div>
         <div class="card-body">
-            <form @submit.prevent="loginByAuth">
+            <form @submit.prevent="onSubmit">
                 <app-input
                     icon="envelope"
                     class="mb-3"
@@ -15,6 +14,13 @@
                     v-model="email"
                 />
                 <app-input
+                    class="mb-3"
+                    type="text"
+                    placeholder="Nome completo"
+                    autocomplete="off"
+                    v-model="name"
+                />
+                <app-input
                     icon="lock"
                     class="mb-3"
                     type="password"
@@ -22,27 +28,33 @@
                     autocomplete="off"
                     v-model="password"
                 />
+                    <app-input
+                    icon="lock"
+                    class="mb-3"
+                    type="password"
+                    placeholder="Confirmar Senha"
+                    autocomplete="off"
+                    v-model="passwordConfirmation"
+                />
 
                 <div class="row">
                     <div class="col-7">
-                        <router-link to="/register" class="text-center">
+                        <app-checkbox v-model="isTeacher">
                             {{ $t("labels.iAmTeacher") }}
-                        </router-link>
+                        </app-checkbox>
                     </div>
                     <div class="col-5">
                         <app-button
                             class="btn-primary"
                             type="submit"
                             block="true"
-                            :loading="isAuthLoading"
+                            :loading="isLoading"
                         >
-                        {{ $t("labels.signIn") }}
+                        {{ $t("labels.register") }}
                         </app-button>
                     </div>
                 </div>
             </form>
         </div>
-        <!-- /.card-body -->
     </div>
-    <!-- /.card -->
 </div>

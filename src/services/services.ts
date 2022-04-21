@@ -368,3 +368,23 @@ export const changePassword = async (
         throw getError(error);
     }
 };
+
+export const createTeacher = async (
+    name: string,
+    email: string,
+    password: string
+) => {
+    try {
+        const payload = {
+            name,
+            email,
+            username: email,
+            password,
+            password_confirmation: password
+        };
+
+        return await axios.post('/register', payload);
+    } catch (error: any) {
+        throw getError(error);
+    }
+};
