@@ -32,9 +32,7 @@
         <tr v-for="(student, index) in students">
           <td>{{student.firstname}} {{student.lastname}}</td>
           <td>{{student.email}}</td>
-          <td v-if="student.ability == -3">Baixa</td>
-          <td v-if="student.ability == 0">Média</td>
-          <td v-if="student.ability == 3">Alta</td>
+          <td>{{student.ability}}</td>
           <td>
             <a href="#" class="btn col-sm-6" @click="onOpenModal(index)">
               <i class="fas fa-pen"></i>

@@ -108,7 +108,7 @@ export default class Questionnaire extends Vue {
                     this.question = response.data.data;
                 },
                 () => {
-                    this.toast.error(this.$t('messages.getFailed'));
+                    // this.toast.error(this.$t('messages.getFailed'));
                 }
             )
             .finally(() => {
